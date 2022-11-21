@@ -85,6 +85,9 @@ ggsave(plot = grid_2, filename = "figures/grid_2.png",
 # BONUS -------------------------------------------------------------------
 
 # Use a different package to combine plots
+ggarrange(plot_1, box_2, 
+          labels = c("A", "B"),
+          ncol = 2, nrow = 1, legend = "bottom", common.legend = TRUE)
 
 
 
