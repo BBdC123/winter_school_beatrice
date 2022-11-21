@@ -1,7 +1,7 @@
 # Complete_script
 # 18.11.2022 - 
 
-# DAY 1 -------------------------------------------------------------------
+# DAY 1 Set-up R-----------------------------------------------------------------
 
 
 library(tidyverse)
@@ -27,7 +27,7 @@ ggplot(data = sst_monthly, aes(x = month, y = temp)) +
 # DAY 3 - Plotting -------------------------------------------------------------------
 
 
-## Basic plotting ----------------------------------------------------------
+## 1) Basic plotting ----------------------------------------------------------
 
 
 library(tidyverse)
@@ -54,7 +54,7 @@ geom_smooth (method = "lm") +
 
 
 
-## Faceting ----------------------------------------------------------------
+## 2) Faceting ----------------------------------------------------------------
 
 
 library
@@ -164,10 +164,142 @@ ggsave(plot = grid_1, filename = "figures/grid_1.png", dpi = 600)
 
 
 
+## 3) Colors ------------------------------------------------------------------
+
+
+library(tidyverse) # Contains ggplot2
+library(ggpubr) # Helps us to combine figures
+library(palmerpenguins) # Contains dataset
+
+
+
+## Continous color scales --------------------------------------------------
+# variables = numbers: gradient of colors
+
+ggplot(data = penguins,
+       aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = bill_depth_mm))
+
+
+ggplot(data = penguins,
+       aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = bill_depth_mm)) +
+  # Change the continuous variable colour palette
+  scale_colour_distiller() 
+
+
+ggplot(data = penguins,
+       aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = bill_depth_mm)) +
+  # Choose a pre-set palette
+  scale_colour_distiller(palette = "Spectral")
+
+
+ggplot(data = penguins,
+       aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = bill_depth_mm)) +
+  # Viridis colour palette (c for continous, d if discrete)
+  scale_colour_viridis_c(option = "B")
+
+
+## Discrete color scales ---------------------------------------------------
+
+ggplot(data = penguins,
+       aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = as.factor(year))) +
+  # The discrete colour palette function
+  scale_colour_brewer()
+
+ggplot(data = penguins,
+      aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = as.factor(year))) +
+  # Choose a colour palette - scale color brewer always for discrete values
+  scale_colour_brewer(palette = "Set1")
+
+
+ggplot(data = penguins,
+       aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = as.factor(year))) +
+  # Discrete viridis colour palette
+  scale_colour_viridis_d(option = "D")
+
+# continous values use distiller
+# discrete values use brewer
+
+
+# Make own color palettes: scale_colour_gradientn
+# scale_colour_gradient default: from red to blue
+# scale colour_gradient2 blue, white, gray
+
+
+# Continuous
+ggplot(data = penguins,
+       aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = bill_depth_mm)) +
+  scale_colour_gradientn(colours = c("#4E272A", "#683D4E", "#755977",
+                                     "#727B9E", "#5F9FBA", "#4CC3C5"))
+
+
+# Discrete
+ggplot(data = penguins,
+       aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(colour = as.factor(sex))) +
+  # How to use custom palette
+  scale_colour_manual(values = c("#AA005D", "#008100"),
+                      # How to change the legend text
+                      labels = c("female", "male", "other")) + 
+  # How to change the legend title
+  labs(x="Body mass (g)", y= "Bill length (mm)", colour = "Sex") 
 
 
 
 
 
+# 4) Plotting stats ----------------------------------------------------------
 
+
+
+# t-test
+compare_means(bill_length_mm~sex, data = penguins, method = "t.test")
+# ANOVA
+compare_means(bill_length_mm~species, data = penguins, method = "anova")
+
+# stat_* adds stats into plots
+
+ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
+  #in geom you always have show.legend. if you want to remove it put =F
+  geom_boxplot(aes(fill = species), show.legend = F) +
+  stat_compare_means(method = "anova")
+
+ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
+  geom_boxplot(aes(fill = species), show.legend = F) +
+  stat_compare_means(method = "anova", 
+                     aes(label = paste0("p ", ..p.format..)), 
+                     label.x = 2) +
+  theme_bw()
+
+#Multiple means
+
+# First create a list of comparisons to feed into our figure
+penguins_levels <- levels(penguins$species)
+my_comparisons <- list(c(penguins_levels[1], penguins_levels[2]), 
+                       c(penguins_levels[2], penguins_levels[3]),
+                       c(penguins_levels[1], penguins_levels[3]))
+# Then we stack it all together
+ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
+  geom_boxplot(aes(fill  = species), colour = "grey40", show.legend = F) +
+  stat_compare_means(method = "anova", colour = "grey50",
+                     label.x = 1.8, label.y = 32) +
+  # Add pairwise comparisons p-value
+  stat_compare_means(comparisons = my_comparisons,
+                     label.y = c(62, 64, 66)) +
+  # Perform t-tests between each group and the overall mean
+  stat_compare_means(label = "p.signif", 
+                     method = "t.test",
+                     ref.group = ".all.") + 
+  # Add horizontal line at base mean
+  geom_hline(yintercept = mean(penguins$bill_length_mm, na.rm = T), 
+             linetype = 2) + 
+  labs(y = "Bill length (mm)", x = NULL) +
+  theme_bw()
 
