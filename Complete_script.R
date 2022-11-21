@@ -3,7 +3,6 @@
 
 # DAY 1 Set-up R-----------------------------------------------------------------
 
-
 library(tidyverse)
 library(lubridate)
 
@@ -11,24 +10,25 @@ sst_monthly <- sst_NOAA %>%
   mutate(month = month(t, label = T)) %>% 
   group_by(site, month) %>% 
   summarise(temp = round(mean(temp, na.rm = T), 3))
+# mutate creates new variable -> here: t to months
 
+# plots
 ggplot(data = sst_monthly, aes(x = month, y = temp)) +
   geom_point(aes(colour = site)) +
   geom_line(aes(colour = site, group = site)) +
   labs(x = NULL, y = "Temperature (°C)")  
 
-
+# facet plot
 ggplot(data = sst_monthly, aes(x = month, y = temp)) +
   geom_point(aes(colour = site)) +
   geom_line(aes(colour = site, group = site)) +
   labs(x = "", y = "Temperature (°C)") +
   facet_wrap(~site, ncol = 1) # Create panels
 
+
 # DAY 3 - Plotting -------------------------------------------------------------------
 
-
 ## 1) Basic plotting ----------------------------------------------------------
-
 
 library(tidyverse)
 library(palmerpenguins)
@@ -53,11 +53,7 @@ geom_smooth (method = "lm") +
   theme (legend.position = "bottom")
 
 
-
 ## 2) Faceting ----------------------------------------------------------------
-
-
-library
 
 ggplot(data= penguins,
        aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
@@ -83,7 +79,6 @@ ggplot(data= penguins,
 
 ## Linear model ------------------------------------------------------------
 
-
 lm_1 <- ggplot(data= penguins,
                aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point() +
@@ -95,7 +90,6 @@ lm_1
 
 ## Non-linear model --------------------------------------------------------
 
-
 nlm_1 <- ggplot(data= penguins,
                aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point() +
@@ -104,9 +98,7 @@ nlm_1 <- ggplot(data= penguins,
 nlm_1
 
 
-
 ## Histogram ---------------------------------------------------------------
-
 
 histogram_1 <- ggplot(data = penguins, 
                       # NB: There is no y-axis value for histograms
@@ -117,9 +109,7 @@ histogram_1 <- ggplot(data = penguins,
 histogram_1
 
 
-
 ## Boxplot -----------------------------------------------------------------
-
 
 box_1 <- ggplot(data = penguins, 
                 # Why 'as.factor()'?
@@ -130,9 +120,7 @@ box_1 <- ggplot(data = penguins,
 box_1
 
 
-
 ## Combining plots ---------------------------------------------------------
-
 
 grid_1 <- ggarrange(lm_1, nlm_1, histogram_1, box_1,
                     # Set number of rows and columns
@@ -148,7 +136,6 @@ grid_1
 
 ## Saving ------------------------------------------------------------------
 
-
 # Different file types
 ggsave(plot = grid_1, filename = "figures/grid_1.pdf")
 ggsave(plot = grid_1, filename = "figures/grid_1.png")
@@ -162,15 +149,11 @@ ggsave(plot = grid_1, filename = "figures/grid_1.png",
 ggsave(plot = grid_1, filename = "figures/grid_1.png", dpi = 600)
 
 
-
-
 ## 3) Colors ------------------------------------------------------------------
-
 
 library(tidyverse) # Contains ggplot2
 library(ggpubr) # Helps us to combine figures
 library(palmerpenguins) # Contains dataset
-
 
 
 ## Continous color scales --------------------------------------------------
@@ -252,12 +235,7 @@ ggplot(data = penguins,
   labs(x="Body mass (g)", y= "Bill length (mm)", colour = "Sex") 
 
 
-
-
-
 # 4) Plotting stats ----------------------------------------------------------
-
-
 
 # t-test
 compare_means(bill_length_mm~sex, data = penguins, method = "t.test")
