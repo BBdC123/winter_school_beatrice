@@ -1,8 +1,3 @@
-# Script name
-# Author
-# Date
-
-
 # Libraries ---------------------------------------------------------------
 
 # ???
@@ -28,6 +23,9 @@ ggplot() +
 # Download bathymetry data and another data layer
 
 # Plot them
+
+
+basemap(limits = c(-160, -80, 60, 85), rotate= T, bathymetry = TRUE)
 
 
 # Exercise 2 --------------------------------------------------------------

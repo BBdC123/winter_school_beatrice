@@ -28,7 +28,7 @@ ggplot(data = sst_monthly, aes(x = month, y = temp)) +
 
 # DAY 3 - PLOTTING -------------------------------------------------------------------
 
-## Basic plotting ----------------------------------------------------------
+# Basic plotting ----------------------------------------------------------
 
 library(tidyverse)
 library(palmerpenguins)
@@ -53,7 +53,7 @@ geom_smooth (method = "lm") +
   theme (legend.position = "bottom")
 
 
-## Faceting ----------------------------------------------------------------
+# Faceting ----------------------------------------------------------------
 
 ggplot(data= penguins,
        aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
@@ -145,7 +145,7 @@ ggsave(plot = grid_1, filename = "figures/grid_1.png",
 ggsave(plot = grid_1, filename = "figures/grid_1.png", dpi = 600)
 
 
-## Colors ------------------------------------------------------------------
+# Colors ------------------------------------------------------------------
 
 library(tidyverse) # Contains ggplot2
 library(ggpubr) # Helps us to combine figures
@@ -231,7 +231,7 @@ ggplot(data = penguins,
   labs(x="Body mass (g)", y= "Bill length (mm)", colour = "Sex") 
 
 
-# 4) Plotting stats ----------------------------------------------------------
+# Plotting stats ----------------------------------------------------------
 
 # t-test
 compare_means(bill_length_mm~sex, data = penguins, method = "t.test")
@@ -285,6 +285,9 @@ library(ggpubr) # For combining figures
 library(ggsn) # Contains code to make scale bars
 library(palmerpenguins) # Data used in an example
 library(maps)
+
+# Basic mapping -----------------------------------------------------------
+
 
 ## Default map -------------------------------------------------------------
 
@@ -391,7 +394,7 @@ earth_2 <- earth_1 +
 earth_2
 
 
-# out world map on top of greenland map
+# our world map on top of greenland map
 green_5 <- green_4 +
   # Convert the earth plot to a grob
   annotation_custom(grob = ggplotGrob(earth_2), 
@@ -416,3 +419,300 @@ green_final
 
 ggsave(plot = green_final, filename = "figures/greenland_final.pdf", 
        height = 6, width = 8)
+
+
+# Style ---------------------------------------------------------------
+
+library(tidyverse) # The base
+library(marmap) # For downloading bathymetry data
+
+# Base map
+ggplot() +
+  borders(fill = "grey70", colour = "black") +
+  coord_equal()
+
+## Fixing date-line issue ------------------------------------------------
+
+# x axis is wrong because it goes to 200
+# we rename long to lon
+# use global fix everytime you map
+map_global_fix <- map_data('world') %>% 
+  rename(lon = long) %>% 
+  mutate(group = ifelse(lon > 180, group+2000, group),
+         lon = ifelse(lon > 180, lon-360, lon))
+
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group), colour = "black", fill = "grey60") +
+  # The default coordinate system, with specific limits
+  coord_cartesian(xlim = c(-180, 180), ylim = c(-90, 90), expand = FALSE)
+
+
+
+# Bathymetric data --------------------------------------------------------
+
+# Download bathymetric data
+bathy_WA <-  getNOAA.bathy(lon1 = 111, lon2 = 117, 
+                           # NB: smaller value first, i.e. more negative
+                           lat1 = -36, lat2 = -19, 
+                           # In degree minutes
+                           resolution = 4)
+
+# Convert to data.frame for use with ggplot2
+bathy_WA_df <- fortify.bathy(bathy_WA) %>% 
+  # Remove altimetry data (filters out depth data if depth > 0)
+  filter(z <= 0) 
+
+# Save
+save(bathy_WA_df, file = "course_material/data/bathy_WA_df.RData")
+
+# Report what was done in case someone else uses the script:
+# Download bathy data
+# bathy_WA <-  getNOAA.bathy(lon1 = 111, lon2 = 117, 
+#                            lat1 = -36, lat2 = -19,
+#                            resolution = 4)
+
+# Convert to data.frame for use with ggplot2
+# bathy_WA_df <- fortify.bathy(bathy_WA)
+
+# Save
+# save(bathy_WA_df, file = "../data/bathy_WA_df.RData")
+# Load
+load("course_material/data/bathy_WA_df.RData")
+
+
+# Mapping bathymetry ---------------------------------------------------------
+
+# Basic bathymetry map
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group), colour = "black", fill = "grey60") +
+  # Add 200 m contour
+  geom_contour(data = bathy_WA_df, 
+               aes(x = x, y = y, z = z),
+               breaks = c(-200), 
+               linewidth = c(0.3), colour = "grey") +
+  coord_cartesian(xlim = c(111, 117), 
+                  ylim = c(-36, -19), expand = FALSE)
+
+
+# Contour lines, adding -2000
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group), colour = "black", fill = "grey60") +
+  # Add 200 and 2000 m contours
+  geom_contour(data = bathy_WA_df, 
+               aes(x = x, y = y, z = z),
+               breaks = c(-200, -2000), 
+               linewidth = c(0.3), colour = "grey") +
+  coord_cartesian(xlim = c(111, 117), 
+                  ylim = c(-36, -19), expand = FALSE)
+
+
+# Change contour colors using aes
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group), colour = "black", fill = "grey60") +
+  # Rather use `aes()`
+  geom_contour(data = bathy_WA_df, 
+               aes(x = x, y = y, z = z, colour = after_stat(level)),
+               linewidth = c(0.3)) +
+  coord_cartesian(xlim = c(111, 117), 
+                  ylim = c(-36, -19), expand = FALSE)
+
+
+# Discrete color palettes
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group), colour = "black", fill = "grey60") +
+  # Combine `aes()` and `breaks = c()` for more control
+  geom_contour(data = bathy_WA_df, 
+               aes(x = x, y = y, z = z, colour = after_stat(level)),
+               breaks = c(-50, -200, -1000, -2000), 
+               linewidth = c(0.3)) +
+  # Also change colour palette
+  scale_colour_distiller(palette = "BuPu") + 
+  coord_cartesian(xlim = c(111, 117), 
+                  ylim = c(-36, -19), expand = FALSE)
+
+# Tidy up appearance
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group), colour = "black", fill = "grey60") +
+  # create discrete factors
+  geom_contour(data = bathy_WA_df, 
+               aes(x = x, y = y, z = z, colour = as.factor(after_stat(level))),
+               breaks = c(-50, -200, -1000, -2000), 
+               linewidth = c(0.3)) +
+  # Use discrete palette
+  scale_colour_brewer("Depth [m]", palette = "Set1", direction = -1) +  
+  # Reverse legend order and make symbols thicker (otherwise it would be thinn lines)
+  guides(colour = guide_legend(reverse = TRUE, 
+                              override.aes = list(linewidth = 5))) +
+  coord_cartesian(xlim = c(111, 117), 
+                  ylim = c(-36, -19), expand = FALSE)
+
+
+
+# Ocean temperature -------------------------------------------------------
+
+load("course_material/data/OISST_2000.RData")
+
+
+# Plot Western Australia
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group), 
+               colour = "black", fill = "grey60") +
+  geom_raster(data = OISST_2000, aes(fill = temp)) +
+  coord_cartesian(xlim = c(111, 117), 
+                  ylim = c(-36, -19), expand = FALSE)
+
+
+# Combining layers
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  # First layer
+  geom_raster(data = OISST_2000, aes(fill = temp)) + 
+  # Second layer
+  geom_polygon(aes(group = group), colour = "black", fill = "grey60") +
+  # Third layer
+  geom_contour(data = bathy_WA_df, 
+               aes(x = x, y = y, z = z, colour = as.factor(after_stat(level))), 
+               breaks = c(-50, -200, -1000, -2000), 
+               linewidth = c(0.3)) +
+  guides(color = guide_legend(reverse = TRUE, 
+                              override.aes = list(linewidth = 5))) + 
+  scale_fill_viridis_c("Temperature [°C]") +
+  scale_colour_brewer("Depth [m]", palette = "BuPu") +
+  coord_cartesian(xlim = c(111, 117), 
+                  ylim = c(-36, -19), expand = FALSE)
+
+
+# Finishing touches
+
+final_map <- ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_raster(data = OISST_2000, aes(fill = temp)) +
+  geom_polygon(aes(group = group), colour = "black", fill = "grey60") +
+  geom_contour(data = bathy_WA_df,
+               aes(x = x, y = y, z = z, 
+                   colour = as.factor(after_stat(level))), 
+               breaks = c(-50, -200, -1000, -2000), 
+               linewidth = c(0.3)) +
+  guides(color = guide_legend(reverse = TRUE, 
+                              override.aes = list(linewidth = 5))) + 
+  scale_fill_viridis_c("Temperature [°C]") +
+  scale_colour_brewer("Depth [m]", palette = "BuPu") +
+  coord_cartesian(xlim = c(111, 117), ylim = c(-36, -19), expand = FALSE) +
+  # Put x axis labels on top of figure and assign °E
+  scale_x_continuous(position = "top", 
+                     breaks = c(112, 114, 116), 
+                     labels = c("112°E", "114°E", "116°E")) + 
+  # Put y axis labels on right of figure and assign °S
+  scale_y_continuous(position = "right",
+                     breaks = c(-34, -28, -22), 
+                     labels = c("34°S", "28°S", "22°S")) +
+  # Remove the axis label text
+  theme(axis.title = element_blank(),
+        # Add black border
+        panel.border = element_rect(fill = NA, colour = "black"), 
+        # Change text size in legend
+        legend.text = element_text(size = 7), 
+        # Change legend title text size
+        legend.title = element_text(size = 7), 
+        # Change size of legend
+        legend.key.height = unit(0.5, "cm"),
+        # Add legend background
+        legend.background = element_rect(fill = "white", colour = "black"),
+        # Change position of legend
+        legend.position = c(0.9, 0.5)
+  )
+
+
+final_map
+
+ggsave(plot = final_map, "figures/map_complete.pdf", height = 6, width = 9)
+
+
+# Mapping the Arctic ------------------------------------------------------------------
+
+library(tidyverse)
+library(ggOceanMaps)
+library(ggOceanMapsData)
+
+# ggOceanMapsData is not on CRAN
+# install remotely
+remotes::install_github("MikkoVihtakari/ggOceanMapsData")
+
+
+# Fixed base map
+map_global_fix <- map_data('world') %>% 
+  rename(lon = long) %>% 
+  mutate(group = ifelse(lon > 180, group+2000, group),
+         lon = ifelse(lon > 180, lon-360, lon))
+
+
+# Load sea surface temperatures for 2022-01-01
+load("course_material/data/OISST_2022.RData")
+
+
+
+## Cartesian projections ---------------------------------------------------
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group)) +
+  # Numeric sizing for lon/lat 
+  coord_cartesian()
+
+## Equal projections -------------------------------------------------------
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group)) +
+  # Equal sizing for lon/lat 
+  coord_equal()
+
+
+# Fixed projections -------------------------------------------------------
+# fixed values for x and y axis
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group)) +
+  # Ratio (Y divided by X) sizing for lon/lat 
+  coord_fixed(ratio = 2)
+
+
+# Quick map ---------------------------------------------------------------
+# Good default
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group)) +
+  # Behind the scenes this adapts the "mercator" projection
+  coord_quickmap()
+
+
+# Polar projections -------------------------------------------------------
+
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group)) +
+  scale_y_reverse() +
+  # A very different projection
+  coord_polar()
+
+#orthographic projection
+ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group)) +
+  coord_map(projection = "ortho", orientation = c(90, 0, 0))
+
+
+
+# ggOceanMaps -------------------------------------------------------------
+
+# just one line for good plot, works everywhere, not only polar regions
+basemap(limits = 60)
+
+# has bathymetry build into it
+basemap(limits = c(100, 160, -20, 30), bathymetry = TRUE)
+
+citation("tidyverse")
+
+citation("base")
