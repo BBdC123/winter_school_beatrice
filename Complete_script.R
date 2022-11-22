@@ -26,9 +26,9 @@ ggplot(data = sst_monthly, aes(x = month, y = temp)) +
   facet_wrap(~site, ncol = 1) # Create panels
 
 
-# DAY 3 - Plotting -------------------------------------------------------------------
+# DAY 3 - PLOTTING -------------------------------------------------------------------
 
-## 1) Basic plotting ----------------------------------------------------------
+## Basic plotting ----------------------------------------------------------
 
 library(tidyverse)
 library(palmerpenguins)
@@ -53,7 +53,7 @@ geom_smooth (method = "lm") +
   theme (legend.position = "bottom")
 
 
-## 2) Faceting ----------------------------------------------------------------
+## Faceting ----------------------------------------------------------------
 
 ggplot(data= penguins,
        aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
@@ -77,8 +77,7 @@ ggplot(data= penguins,
 # Assigning the ggplot2 code to an object name
 
 
-## Linear model ------------------------------------------------------------
-
+#Linear model
 lm_1 <- ggplot(data= penguins,
                aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point() +
@@ -88,8 +87,7 @@ lm_1
 
 
 
-## Non-linear model --------------------------------------------------------
-
+# Non-linear model 
 nlm_1 <- ggplot(data= penguins,
                aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point() +
@@ -98,8 +96,7 @@ nlm_1 <- ggplot(data= penguins,
 nlm_1
 
 
-## Histogram ---------------------------------------------------------------
-
+# Histogram
 histogram_1 <- ggplot(data = penguins, 
                       # NB: There is no y-axis value for histograms
                       aes(x = body_mass_g)) + 
@@ -109,8 +106,7 @@ histogram_1 <- ggplot(data = penguins,
 histogram_1
 
 
-## Boxplot -----------------------------------------------------------------
-
+# Boxplot 
 box_1 <- ggplot(data = penguins, 
                 # Why 'as.factor()'?
                 aes(x = as.factor(year),
@@ -149,14 +145,14 @@ ggsave(plot = grid_1, filename = "figures/grid_1.png",
 ggsave(plot = grid_1, filename = "figures/grid_1.png", dpi = 600)
 
 
-## 3) Colors ------------------------------------------------------------------
+## Colors ------------------------------------------------------------------
 
 library(tidyverse) # Contains ggplot2
 library(ggpubr) # Helps us to combine figures
 library(palmerpenguins) # Contains dataset
 
 
-## Continous color scales --------------------------------------------------
+### Continous color scales --------------------------------------------------
 # variables = numbers: gradient of colors
 
 ggplot(data = penguins,
@@ -185,7 +181,7 @@ ggplot(data = penguins,
   scale_colour_viridis_c(option = "B")
 
 
-## Discrete color scales ---------------------------------------------------
+### Discrete color scales ---------------------------------------------------
 
 ggplot(data = penguins,
        aes(x = body_mass_g, y = bill_length_mm)) +
@@ -281,3 +277,142 @@ ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
   labs(y = "Bill length (mm)", x = NULL) +
   theme_bw()
 
+
+# DAY 4 - MAPPING ---------------------------------------------------------
+
+library(tidyverse) # Contains most of what we need
+library(ggpubr) # For combining figures
+library(ggsn) # Contains code to make scale bars
+library(palmerpenguins) # Data used in an example
+library(maps)
+
+## Default map -------------------------------------------------------------
+
+earth_1 <- ggplot() +
+  # The global shape file
+  borders(fill = "grey70", colour = "black") +
+  # Equal sizing for lon/lat 
+  coord_equal()
+earth_1
+
+
+## Cropping ----------------------------------------------------------------
+
+green_1 <- ggplot() +
+  borders(fill = "grey70", colour = "black") +
+  # Force lon/lat extent
+  coord_equal(xlim = c(-75, -10), ylim = c(58, 85)) 
+green_1
+
+#xlim sets limits for x axis, ylim for yaxis
+
+
+## Extract a region --------------------------------------------------------
+
+map_data('world') %>% 
+  select(region) %>% 
+  distinct() %>% 
+  arrange(region)
+
+map_data_green <- map_data('world') %>% 
+  filter(region == "Greenland")
+head(map_data_green)
+
+#filter to just filter out when region column is same as Greenland
+# == means equivalent to
+
+#Map is the same as a scatterplot with x and y axis
+
+ggplot(data = penguins, 
+       aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point()
+
+ggplot(data = map_data_green, 
+       aes(x = long, y = lat)) +
+  geom_point()
+
+
+## Polygons ----------------------------------------------------------------
+
+green_2 <- ggplot(data = map_data_green, aes(x = long, y = lat)) +
+  # What is this doing?
+  geom_polygon(aes(group = group), 
+               # Note these are outside of aes() 
+               fill = "chartreuse4", colour = "black")
+green_2
+
+# when using polygons we need to tell R what the group is
+# map data is desgined to work with ggplot: column name is group
+# group is a column inside the extracted data 
+# group defines the different landmasses (i.e. islands, mainland)
+
+
+## Labels ---------------------------------------------------------
+
+green_3 <- green_2 +
+  # Add Greenland text
+  annotate("text", label = "Greenland", 
+           x = -40, y = 75.0, size = 7.0, fontface = "bold.italic") +
+  # Add North Atlantic Ocean text
+  annotate("text", label = "North\nAtlantic\nOcean", 
+           x = -20, y = 64.0, size = 5.0,  angle = 330, colour = "navy") +
+  # Add Baffin Bay label
+  annotate("label", label = "Baffin\nBay", 
+           x = -62, y = 70, size = 5.0, fill = "springgreen") +
+  # Add black line under Greenland text
+  annotate("segment", 
+           x = -50, xend = -30, y = 73, yend = 73)
+green_3
+
+# \n makes Zeilenbruch
+# label is text box
+
+
+## Scalebars ---------------------------------------------------------------
+
+green_4 <- green_3 +
+  # Set location of bar,
+  scalebar(data = map_data_green, location = "bottomleft", 
+           # Size of scale bar
+           dist = 500, dist_unit = "km", transform = TRUE,
+           # Set particulars
+           st.size = 4, height = 0.03, st.dist = 0.04) 
+green_4
+
+
+## Insetting ---------------------------------------------------------------
+
+earth_2 <- earth_1 + 
+  geom_rect(aes(xmin = -75, xmax = -10, ymin = 58, ymax = 85),
+            fill = NA, colour = "red") +
+  # theme_void removes everything except geom
+  # gives transparent background
+  theme_void()
+earth_2
+
+
+# out world map on top of greenland map
+green_5 <- green_4 +
+  # Convert the earth plot to a grob
+  annotation_custom(grob = ggplotGrob(earth_2), 
+                    xmin = -30, xmax = -10,
+                    ymin = 76, ymax = 84)
+green_5
+
+#make it more pretty
+# x scale: go from -60 to -20 in steps of 20
+# y scale: go from 60 to 80 in steps of 10
+green_final <- green_5 +
+  scale_x_continuous(breaks = seq(-60, -20, 20),
+                     labels = c("60°W", "40°W", "20°w"),
+                     position = "bottom") +
+  scale_y_continuous(breaks = seq(60, 80, 10),
+                     labels = c("60°N", "70°N", "80°N"),
+                     position = "right") +
+  labs(x = NULL, y = NULL) +
+  theme_bw()
+green_final
+
+
+ggsave(plot = green_final, filename = "figures/greenland_final.pdf", 
+       height = 6, width = 8)
