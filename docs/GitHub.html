@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>FACE-IT R workshop - GitHub with RStudio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://kit.fontawesome.com/78ddb093ea.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/FACE-IT_Logo_900.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./R_RStudio.html">R+RStudio</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./GitHub.html" aria-current="page">GitHub</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./content.html">Content</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/FACE-IT-project/R_workshop"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#create-a-github-account" id="toc-create-a-github-account" class="nav-link active" data-scroll-target="#create-a-github-account">Create a GitHub account</a></li>
+  <li><a href="#install-git" id="toc-install-git" class="nav-link" data-scroll-target="#install-git">Install Git</a>
+  <ul class="collapse">
+  <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows">Windows</a></li>
+  <li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos">MacOS</a></li>
+  <li><a href="#linux" id="toc-linux" class="nav-link" data-scroll-target="#linux">Linux</a></li>
+  <li><a href="#set-user-info" id="toc-set-user-info" class="nav-link" data-scroll-target="#set-user-info">Set user info</a></li>
+  </ul></li>
+  <li><a href="#ssh-key" id="toc-ssh-key" class="nav-link" data-scroll-target="#ssh-key">SSH key</a>
+  <ul class="collapse">
+  <li><a href="#create-a-key" id="toc-create-a-key" class="nav-link" data-scroll-target="#create-a-key">Create a key</a></li>
+  <li><a href="#add-key-to-ssh-agent" id="toc-add-key-to-ssh-agent" class="nav-link" data-scroll-target="#add-key-to-ssh-agent">Add key to ssh-agent</a></li>
+  <li><a href="#windows-1" id="toc-windows-1" class="nav-link" data-scroll-target="#windows-1">Windows</a></li>
+  <li><a href="#linux-1" id="toc-linux-1" class="nav-link" data-scroll-target="#linux-1">Linux</a></li>
+  </ul></li>
+  <li><a href="#ssh-to-github" id="toc-ssh-to-github" class="nav-link" data-scroll-target="#ssh-to-github">SSH to GitHub</a></li>
+  <li><a href="#github-and-rstudio" id="toc-github-and-rstudio" class="nav-link" data-scroll-target="#github-and-rstudio">GitHub and RStudio</a>
+  <ul class="collapse">
+  <li><a href="#specific-terms" id="toc-specific-terms" class="nav-link" data-scroll-target="#specific-terms">Specific terms</a></li>
+  </ul></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
+  <li><a href="#more-options" id="toc-more-options" class="nav-link" data-scroll-target="#more-options">More options</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise 2</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">GitHub with RStudio</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>It may seem like a detour to be setting up a <a href="https://github.com/">GitHub</a> account on our way to an <strong>R</strong> workshop, but this online tool is centrally important to the best practices for working in RStudio, as we shall see below. If you already have a GitHub account, wonderful! Much of the following information is probably already known to you. So rather spend this time helping the people next to you through the process. Much of the content in this module is taken from the wonderful online book <a href="https://happygitwithr.com/index.html">Happy Git and GitHub for the useR</a>, which provides a much more in-depth view of what Git is, the many ways we can use it, and many tips and tricks for any errors encountered below. For practical purposes, in this module we are going to focus directly on what we need to know to connect RStudio to GitHub in order to manage RStudio Projects.</p>
+<p>At the outset of this module we must acknowledge that there are many other Git based online (and desktop) resources that one may use in an R/RStudio workflow. We choose to focus on GitHub in this workshop because it is the best integrated, supported, and documented option. Meaning that not only is it the easiest to use ‘out of the box’, if we encounter any issues after this workshop it will be easiest to search for solutions for GitHub. Note however that GitHub is owned by Microsoft, which is why many people have switched over to <a href="https://about.gitlab.com/">GitLab</a>. If anyone is interested in the finer points of this discussion, please let the instructor know.</p>
+<section id="create-a-github-account" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-github-account">Create a GitHub account</h2>
+<p>As with any online resource in the digital age, we must first setup an account. To do so, go to the <a href="">GitHub</a> home page, click ‘Sign up’ in the top right, and follow the prompts. You will need an e-mail address to complete this process, but there is otherwise no cost <strong>BONUS:</strong> if you have an academic e-mail address you should be able to register for an academic account, which provides some of the benefits of a paid account, but for free! If you experience any issues in this process try consulting the <a href="https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">GitHub help page</a>.</p>
+</section>
+<section id="install-git" class="level2">
+<h2 class="anchored" data-anchor-id="install-git">Install Git</h2>
+<p>The Git software comes standard on MacOS and all Linux distributions. If you have one of these Operating Systems, run the following code in a Bash shell (i.e.&nbsp;Terminal) to check that you have it:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And if you do, check your version:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Close RStudio before proceeding with the installation of Git for a specific Operating System.</p>
+<section id="windows" class="level3">
+<h3 class="anchored" data-anchor-id="windows">Windows</h3>
+<p>There is a one-stop-shop for all of your Git needs in the form of <a href="https://gitforwindows.org/">Git for Windows</a>. Navigate to this page, download the file, and follow the prompts to install. Generally the default options are acceptable, with two important considerations:</p>
+<ol type="1">
+<li><p>For the ‘Adjusting your PATH environment’ prompt, ensure that you choose ‘Git from the command line and also from 3rd-party software’</p></li>
+<li><p>The ideal location to install Git is <code>C:/Program Files</code>, doing otherwise may cause problems later on</p></li>
+</ol>
+<p>If you already have Git installed for Windows, run the following line in your Terminal to check that it is up-to-date:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> update-git-for-windows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="macos" class="level3">
+<h3 class="anchored" data-anchor-id="macos">MacOS</h3>
+<p>Open a Terminal and run:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="linux" class="level3">
+<h3 class="anchored" data-anchor-id="linux">Linux</h3>
+<p>Ubuntu or Debian Linux:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Fedora or RedHat Linux:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> yum install git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="set-user-info" class="level3">
+<h3 class="anchored" data-anchor-id="set-user-info">Set user info</h3>
+<p>With Git installed, we need to tell it our username and e-mail. This isn’t linked to anything else on our computer, but it will appear during our workflow between RStudio and Github. Primarily this information is useful when we are working on a project with other people so they can see who made what changes when. Preferably one should use the same e-mail account here as that for used for the GitHub account.</p>
+<p>In a Terminal:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">'Jane Doe'</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">'jane@example.com'</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="ssh-key" class="level2">
+<h2 class="anchored" data-anchor-id="ssh-key">SSH key</h2>
+<p>While it is possible to connect RStudio to GitHub using the username and password we created above for GitHub (i.e.&nbsp;HTTPS connection), this quickly becomes tedious because we must provide this info every time we upload something. Rather it is better to spend a few minutes now setting up an SSH key so that we can focus more on our work, and not remembering usernames and passwords. There are best practices on the management of SSH keys (i.e.&nbsp;changing them once a year), but we won’t get into that here.</p>
+<section id="create-a-key" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-key">Create a key</h3>
+<p>Open RStudio and go to: <em>Tools &gt; Global Options…&gt; Git/SVN &gt; Create RSA Key…</em>. Note that if there is a file pathway in the text box above the ‘Create RSA Key…’ button this means you already have an SSH key. If not, click ‘Create’ and RStudio will generate one for you. It will prompt you for a passphrase. This isn’t necessary for now and can be skipped. If you want to create a new SSH key with a passphrase later circle back to this step. Adding a passphrase will require additional steps that are not listed below and can be found <a href="https://happygitwithr.com/ssh-keys.html">here</a>.</p>
+</section>
+<section id="add-key-to-ssh-agent" class="level3">
+<h3 class="anchored" data-anchor-id="add-key-to-ssh-agent">Add key to ssh-agent</h3>
+<section id="macos-1" class="level4">
+<h4 class="anchored" data-anchor-id="macos-1">MacOS</h4>
+<p>Check that ssh-agent is enabled (the <code>pid</code> may vary):</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">~</span> % eval <span class="st">"</span><span class="va">$(</span><span class="fu">ssh-agent</span> <span class="at">-s</span><span class="va">)</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On MacOS Sierra 10.12.2 and higher create a <code>~/.ssh/config</code> file with this text inside:</p>
+<pre><code>Host *
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519</code></pre>
+</section>
+</section>
+<section id="windows-1" class="level3">
+<h3 class="anchored" data-anchor-id="windows-1">Windows</h3>
+<p>In the Git Bash Shell:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> eval <span class="va">$(</span><span class="fu">ssh-agent</span> <span class="at">-s</span><span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Add your key (change the name to match whatever you chose above):</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ssh-add ~/.ssh/id_ed25519</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="linux-1" class="level3">
+<h3 class="anchored" data-anchor-id="linux-1">Linux</h3>
+<p>Check that ssh-agent is running:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> eval <span class="st">"</span><span class="va">$(</span><span class="fu">ssh-agent</span> <span class="at">-s</span><span class="va">)</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Add your key (change name as necessary):</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-add</span> ~/.ssh/id_ed25519</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="ssh-to-github" class="level2">
+<h2 class="anchored" data-anchor-id="ssh-to-github">SSH to GitHub</h2>
+<p>In RStudio: <em>Tools &gt; Global Options…&gt; Git/SVN.</em>. If your key is connected, there should be a ‘View public key’ option to click on. Do so and accept the offer to copy to clipboard. Or do so manually if not prompted.</p>
+<p>In GitHub: <em>Settings &gt; SSH and GPG keys</em>. Click the green ‘New SSH key’ button in the top right. Paste the SSH key you copied from RStudio in the ‘Key’ box and give it a name that makes sense to you. Finish by clicking ‘Add SSH key’.</p>
+</section>
+<section id="github-and-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="github-and-rstudio">GitHub and RStudio</h2>
+<p>Now that we have Git sorted on our computers and we have created an SSH key for GitHub we may connect our RStudio Projects to GitHub. To do so we must first create a new repository. On your GitHub account click the green ‘New’ button.</p>
+<p>Start with the following info for testing purposes:</p>
+<ul>
+<li>Repository name: <code>winter_school_yourname</code> (or whatever you like)</li>
+<li>Description: Repository for code and notes taken during FACE-IT 2022 winter R workshop</li>
+<li>Public</li>
+<li>Initialize this repository with: (X) Add a README file</li>
+</ul>
+<p>Then click the green <code>Create repository</code> button.</p>
+<p>To connect this repo to our RStudio we must first copy the link. Do so by clicking on the green ‘Code’ button in the top right. Select the ‘SSH’ option and cop the text below. It should look something like: <code>git@github.com:yourusername/winter_school_yourname.git</code></p>
+<p>In RStudio: <em>File &gt; New Project &gt; Version Control &gt; Git</em> and paste the link in ‘Repository URL’. Before you click ’ Create Project’ note where RStudio intends to save the files and change this if desired.</p>
+<p>You should now see a window open that shows that RStudio is downloading your files to your computer. Let’s open the README.md file in RStudio, add a bit of text, and save the changes. Now that we have made changes we can upload them back to GitHub. This is done via the <em>Git</em> tab in the <em>Environment</em> pane, which is in the top right by default.</p>
+<section id="specific-terms" class="level3">
+<h3 class="anchored" data-anchor-id="specific-terms">Specific terms</h3>
+<p>The process of uploading the changes to our code to GitHub is not complex, but the technical terms used are very generic and easy to confuse. Therefore we have them set out below in bullet points for ease of reference over the following week of the workshop:</p>
+<ul>
+<li><strong>Commit</strong>: This is the term used to describe the process of saving any changes you have made to your code (and files etc.) locally on your computer
+<ul>
+<li>To access this click the ‘Commit’ button within the <em>Git</em> tab</li>
+<li>This opens a new window showing which files where changed, and which lines were added (green) or deleted (red)</li>
+<li>Click the check box next to each file you want to commit and then write a short message explaining what was done</li>
+<li>Clicking the ‘Commit’ button will save these changes and the attached message locally on your machine via the Git software</li>
+</ul></li>
+<li><strong>Push</strong>: This is the term used to describe the process of uploading data from your local machine to your GitHub account
+<ul>
+<li>Note that you cannot push anything until you have commit it locally</li>
+</ul></li>
+<li><strong>Pull</strong>: This is how we download new code, files, etc. from our GitHub repository to our local machine
+<ul>
+<li>This is generally used when we are collaborating with other people</li>
+<li>If you are only working by yourself, on just one computer, you won’t use this often</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="exercise-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
+<div class="application-exercise">
+<p><strong>Push your repo from RStudio to GitHub</strong></p>
+<p>Using the definitions for the key-terms above successfully upload your changes to Github. Once you think you have succeeded, go to the repo page on your GitHub account and check that the changes have appeared.</p>
+</div>
+</section>
+<section id="more-options" class="level2">
+<h2 class="anchored" data-anchor-id="more-options">More options</h2>
+<p>There are many things that can be done via Git, GitHub, and/or RStudio. We won’t go into all of them here, but we will look at one example. Go to the <a href="https://github.com/FACE-IT-project/R_workshop">repository</a> for this workshop and copy the ‘Code’ link. Start a new RStudio Project following the same steps as above but use the new link.</p>
+<p>After following the prompts it should download all of the source code for this site, and the extra course content, to your local computer. This is just one example of how we can share code and documents with a wide range of collaborators.</p>
+</section>
+<section id="exercise-2" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
+<div class="application-exercise">
+<p><strong>Collaboration via GitHub</strong></p>
+<p>Pair up with a buddy and practice pulling each others repositories, making changes, and pushing them back. Once you are comfortable with this, find a new buddy and repeat the process.</p>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

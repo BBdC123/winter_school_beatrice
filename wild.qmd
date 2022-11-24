@@ -1,0 +1,53 @@
+---
+title: "Wild Data"
+editor: source
+---
+
+When we start out with the processes of finding data 'in the wild' and sourcing them it can feel very overwhelming. With a few considerations however we can drastically cut down on the feelings of uncertainty that enshroud this process. For starters, the vast majority of the environmental and biological data that we may want (on a global scale, local scale can be a bit more specific) can be found in just a handful of places. The methods for accessing these data are also not as varied as they may first appear. The two presentations+exercises in this unit will cover 1) where we may find the majority of the wild data we may need, and 2) the most common methods of loading those data into R in a **tidy** way.
+
+## Slides and application exercises
+
+::: slide-deck
+**Wild 1: Where data roam free**
+
+::: slides
+[Slides](https://face-it-project.github.io/R_workshop/course_material/_slides/wild_1_roaming.html)
+:::
+
+::: source
+[Source](https://github.com/FACE-IT-project/R_workshop/tree/main/course_material/_slides/wild_1_roaming.qmd)
+:::
+:::
+
+::: application-exercise
+**Home on the range**
+
+::: source
+[Source](https://github.com/FACE-IT-project/R_workshop/tree/main/course_material/exercises/wild_1_roaming.R)
+:::
+:::
+
+::: slide-deck
+**Wild 2: The local data shop**
+
+::: slides
+[Slides](https://face-it-project.github.io/R_workshop/course_material/_slides/wild_2_local.html)
+:::
+
+::: source
+[Source](https://github.com/FACE-IT-project/R_workshop/tree/main/course_material/_slides/wild_2_local.qmd)
+:::
+:::
+
+::: application-exercise
+**Orders up!**
+
+::: source
+[Source](https://github.com/FACE-IT-project/R_workshop/tree/main/course_material/exercises/wild_2_local.R)
+:::
+:::
+
+## DIY wild data
+
+At the end of this unit we should now be equipped with the tools we need to source, download, tidy, analyse, and visualise data from a number of free data sources out in the wild. For this DIY session let's select a dataset out in the wild that has particular importance to the work that we do. But rather than downloading it via a web interface, let's write a script that contains the full pipeline that can, with the push of one button, download, tidy, analyse, and visualise the data. Saving a faceted/combined figure to our local computer. Preferably with a map, if that would make sense given the dataset in question.
+

@@ -1,27 +1,83 @@
-# Script name
-# Author
-# Date
-
 
 # Libraries ---------------------------------------------------------------
 
-# ???
-
+library(rgbif)
 
 # Data --------------------------------------------------------------------
-
-# ???
 
 
 # Example -----------------------------------------------------------------
 
-# ???
+# Download occurrence data
+Emax <- occ_search(scientificName = "Ecklonia maxima")
 
+# create bar plot
+Emax$data %>% 
+  group_by(county) %>% 
+  summarise(count = n(), .groups = "drop") %>% 
+  ggplot(aes(x = county, y = count)) +
+  geom_bar(aes(fill = county), stat = "identity", show.legend = F)
+
+# plot occurence points on map
+Emax$data %>% 
+  ggplot() +
+  borders() +
+  geom_point(aes(x = as.numeric(Emax$data$decimalLongitude), 
+                 y = as.numeric(Emax$data$decimalLatitude),
+                 colour = country)) +
+  coord_quickmap(xlim = c(-1, 29), ylim = c(-36, 1))
 
 # Exercise 1 --------------------------------------------------------------
 
 # Download GBIF species presence data and a physical data layer
+
+# Download occurrence data
+Caulerpa <- occ_search(scientificName = "Caulerpa lentillifera")
+
 # Plot them together on the same map
+
+Caulerpa_map <- Caulerpa$data %>% 
+  ggplot() +
+  borders() +
+  geom_point(aes(x = as.numeric(Caulerpa$data$decimalLongitude), 
+                 y = as.numeric(Caulerpa$data$decimalLatitude),
+                 colour = country)) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size=7))+
+  coord_quickmap()
+
+
+## Fixed map
+
+map_global_fix <- map_data('world') %>% 
+  rename(lon = long) %>% 
+  mutate(group = ifelse(lon > 180, group+2000, group),
+         lon = ifelse(lon > 180, lon-360, lon)) 
+
+# plot map
+global_map <- ggplot(data = map_global_fix, aes(x = lon, y = lat)) +
+  geom_polygon(aes(group = group), 
+               fill = "gray", colour = "black")+
+  coord_quickmap()
+
+global_map
+
+
+# add Caulerpa data
+
+Caulerpa_map <- ggplot() +
+  geom_polygon(data = map_global_fix, aes(x = lon, y = lat, group = group), 
+               fill = "gray", colour = "black")+
+  coord_quickmap()+
+  geom_point(aes(x = as.numeric(Caulerpa$data$decimalLongitude),
+                 y = as.numeric(Caulerpa$data$decimalLatitude)), color = "navy")+
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size=7))
+
+Caulerpa_map
+
 
 
 # Exercise 2 --------------------------------------------------------------

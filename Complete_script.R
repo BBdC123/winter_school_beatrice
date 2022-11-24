@@ -209,6 +209,8 @@ ggplot(data = penguins,
 # Make own color palettes: scale_colour_gradientn
 # scale_colour_gradient default: from red to blue
 # scale colour_gradient2 blue, white, gray
+# scale_fill_gradient2 (low="blue", high="red") -> for diverging colors
+# -> 0 in the middle white and lower and higher values blue or red, respectively
 
 
 # Continuous
@@ -1058,3 +1060,156 @@ data(package = .packages(all.available =TRUE))
 MASS:crabs
 
 crabs <- MASS::crabs
+
+
+
+# DAY 6 -  Wild Data ----------------------------------------------------------------
+
+
+
+## Online databases ----------------------------------------------------
+
+library(tidyverse) # All-in-one
+
+# Packages that help us to download pre-processed data layers:
+
+library(oceanexplorer) # Access World Ocean Atlas (WOA)
+# See: # https://cran.r-project.org/web/packages/oceanexplorer/vignettes/oceanexplorer.html
+
+library(sdmpredictors) # Layers used in modelling
+# See: https://bio-oracle.org/code.php
+
+
+# These packages help us to download specific datasets
+
+library(rgbif) # Access anything on GBIF (including WoRMs)
+# See: https://data-blog.gbif.org/post/gbif-api-beginners-guide/
+
+library(pangaear) # Access anything on PANGAEA
+# See: https://docs.ropensci.org/pangaear/
+
+
+
+# These packages help us query entire databases
+
+library(rerddap) # For accessing ERDDAP databases
+
+
+# visit ropenscri.org to search for websites that you need package for
+# e.g. WoRMs
+
+
+# bio oracle good for bottom data
+library(sdmpredictors)
+# Explore datasets in the package
+list_datasets()
+# Explore layers in a dataset
+BO_layers <- list_layers(datasets = "Bio-ORACLE")
+# Average surface temperature
+surface_temp <- load_layers("BO22_tempmean_ss")
+
+
+# GBIF (global biodiversity information facility) 
+# good for species distribution
+# need free account
+
+# The library containing these functions
+library(rgbif)
+# Download occurrence data
+Emax <- occ_search(scientificName = "Ecklonia maxima")
+
+# create bar plot
+Emax$data %>% 
+  group_by(county) %>% 
+  summarise(count = n(), .groups = "drop") %>% 
+  ggplot(aes(x = county, y = count)) +
+  geom_bar(aes(fill = county), stat = "identity", show.legend = F)
+
+# plot occurence points on map
+Emax$data %>% 
+  ggplot() +
+  borders() +
+  geom_point(aes(x = as.numeric(Emax$data$decimalLongitude), 
+                 y = as.numeric(Emax$data$decimalLatitude),
+                 colour = country)) +
+  coord_quickmap(xlim = c(-1, 29), ylim = c(-36, 1))
+
+
+# PANGAEA
+# largest online repository for earth and environmental science
+# [PANGAEA](https://pangaea.de/) hosts a massive number of useful datasets
+# Either find a dataset you like on the website, or search for it using R
+
+# The library containing these functions
+library(pangaear)
+
+# Search for PAR data within Kongsfjorden
+# NB: Bounding box (coordinates) is: minlon, minlat, maxlon, maxlat
+search_res <- pg_search(query = "PAR", bbox = c(11, 78, 13, 80), count = 10)
+head(search_res)
+
+
+# Once you have a DOI, easy to download and use in R
+
+# output-location: fragment
+# Download
+# better to use doi instead of search_res thingy
+kong_PAR_dl <- pg_data(doi = search_res$doi[1])
+head(kong_PAR_dl)
+
+# always need to change data:
+# mutate(t = as.POSIXct(str_replace(`Date/Time`, "T", " ")))
+
+# Prep
+kong_PAR <- kong_PAR_dl[[1]]$data %>% 
+  mutate(t = as.POSIXct(str_replace(`Date/Time`, "T", " ")))
+
+# Plot
+kong_PAR %>% 
+  filter(t < "2012-07-31 00:00:00") %>% 
+  ggplot(aes(x = t, y = `PAR [µmol/m**2/s]`)) +
+  geom_line(aes(colour = as.factor(`Depth water [m]`))) +
+  facet_wrap(~Comment, ncol = 1) + 
+  labs(x = NULL, colour = "Depth [m]", 
+       title = "PAR data from Kongsfjorden for July, 2012",
+       subtitle = "Shallower values taken both above and below kelp canopy",
+       caption = str_wrap(kong_PAR_dl[[1]]$citation, 100))
+
+
+
+## Raster files --------------------------------------------------------------
+
+
+## Shape files -------------------------------------------------------------
+
+library(sf)
+library(sfheaders)
+
+# Load shapefile
+coastline_full <- read_sf("C:/Users/bbrix/Documents/GSHHG/GSHHS_shp/f/GSHHS_f_L1.shp")
+
+# Convert to data.frame
+coastline_full_df <- sf_to_df(coastline_full, fill = TRUE)
+
+coastline_full <- read_sf("C:/Users/bbrix/Documents/GSHHG/GSHHS_shp/f/GSHHS_f_L1.shp")
+
+coastline_full_df <- sf_to_df(coastline_full, fill = TRUE)
+
+
+# Filter to Kongsfjorden and plot
+# NB: filter much wider than necessary to ensure
+# that you get enough of the polygon to avoid issues
+coastline_full_df %>% 
+  filter(between(x, 6, 13),
+         between(y, 78, 80)) %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_polygon(aes(group = id), 
+               fill = "grey70", colour = "black") +
+  coord_quickmap(expand = FALSE,
+                 xlim = c(11, 12.6), ylim = c(78.88, 79.05))
+
+
+
+# NetCDF ------------------------------------------------------------------
+
+

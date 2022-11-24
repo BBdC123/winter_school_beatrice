@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>FACE-IT R workshop - Summary</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./brief.html" rel="next">
+<link href="./workflow.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://kit.fontawesome.com/78ddb093ea.js" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/FACE-IT_Logo_900.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./R_RStudio.html">R+RStudio</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./GitHub.html">GitHub</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./content.html" aria-current="page">Content</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/FACE-IT-project/R_workshop"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Summary</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./content.html" class="sidebar-item-text sidebar-link">Content</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./plots.html" class="sidebar-item-text sidebar-link">Plotting in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./maps.html" class="sidebar-item-text sidebar-link">Mapping in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidy.html" class="sidebar-item-text sidebar-link">Tidy Data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./wild.html" class="sidebar-item-text sidebar-link">Wild Data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow.html" class="sidebar-item-text sidebar-link">Workflows in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link active">Summary</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./brief.html" class="sidebar-item-text sidebar-link">Policy Brief</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bonus.html" class="sidebar-item-text sidebar-link">Bonus</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-future" id="toc-the-future" class="nav-link active" data-scroll-target="#the-future">The future</a></li>
+  <li><a href="#today" id="toc-today" class="nav-link" data-scroll-target="#today">Today</a></li>
+  <li><a href="#functions-by-chapter" id="toc-functions-by-chapter" class="nav-link" data-scroll-target="#functions-by-chapter">Functions by chapter</a>
+  <ul class="collapse">
+  <li><a href="#useful-information" id="toc-useful-information" class="nav-link" data-scroll-target="#useful-information">Useful information</a>
+  <ul class="collapse">
+  <li><a href="#operators" id="toc-operators" class="nav-link" data-scroll-target="#operators">Operators</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#base-r-primer" id="toc-base-r-primer" class="nav-link" data-scroll-target="#base-r-primer">Base R primer</a>
+  <ul class="collapse">
+  <li><a href="#dataframes" id="toc-dataframes" class="nav-link" data-scroll-target="#dataframes">Dataframes</a></li>
+  <li><a href="#basic-data-types" id="toc-basic-data-types" class="nav-link" data-scroll-target="#basic-data-types">Basic data types</a>
+  <ul class="collapse">
+  <li><a href="#numeric" id="toc-numeric" class="nav-link" data-scroll-target="#numeric">Numeric</a></li>
+  <li><a href="#integer" id="toc-integer" class="nav-link" data-scroll-target="#integer">Integer</a></li>
+  <li><a href="#logical" id="toc-logical" class="nav-link" data-scroll-target="#logical">Logical</a></li>
+  <li><a href="#character" id="toc-character" class="nav-link" data-scroll-target="#character">Character</a></li>
+  <li><a href="#factor" id="toc-factor" class="nav-link" data-scroll-target="#factor">Factor</a></li>
+  <li><a href="#dates" id="toc-dates" class="nav-link" data-scroll-target="#dates">Dates</a></li>
+  </ul></li>
+  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">Vectors</a></li>
+  <li><a href="#vector-indices" id="toc-vector-indices" class="nav-link" data-scroll-target="#vector-indices">Vector indices</a></li>
+  <li><a href="#vector-creation" id="toc-vector-creation" class="nav-link" data-scroll-target="#vector-creation">Vector creation</a></li>
+  <li><a href="#vector-arithmetic" id="toc-vector-arithmetic" class="nav-link" data-scroll-target="#vector-arithmetic">Vector arithmetic</a></li>
+  <li><a href="#dataframe-creation" id="toc-dataframe-creation" class="nav-link" data-scroll-target="#dataframe-creation">Dataframe creation</a></li>
+  <li><a href="#dataframe-indices" id="toc-dataframe-indices" class="nav-link" data-scroll-target="#dataframe-indices">Dataframe indices</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Summary</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<p>Over the past four days we have covered quite a bit of ground. By now it is our hope that after having participated in this workshop you will feel confident enough using R to branch out on your own and begin applying what you have learned to your own research.</p>
+<p>Above all, remember the tidy principles you have leaned here and endeavour to apply them to all facets of your work. The more uniformly tidy your work becomes, the more compounding benefits you will begin to notice.</p>
+<section id="the-future" class="level2">
+<h2 class="anchored" data-anchor-id="the-future">The future</h2>
+<p>The content we have covered in this workshop is only the beginning. We have looked down upon the tidyverse, it’s multitudinous spiralling arms stretching out away from us in all directions. The next step is to begin to investigate the specific branches of the R tree of knowledge that interest us most. Or are most relevant to our work. The following list contains some further suggestions for workshops that are available:</p>
+<ul>
+<li>R for biologists</li>
+<li>R for environmental science</li>
+<li>R for oceanographers</li>
+<li>Advanced visualisations</li>
+<li>Multivariate analysis</li>
+<li>Species distribution modelling</li>
+<li>Reproducible research</li>
+<li>Basic stats</li>
+</ul>
+<p>For further information or inquiries about additional training please contact Robert Schlegel: robwschlegel@gmail.com .</p>
+</section>
+<section id="today" class="level2">
+<h2 class="anchored" data-anchor-id="today">Today</h2>
+<p>For the rest of today we will now open the floor to questions and suggestions that we may work through as a group.</p>
+</section>
+<section id="functions-by-chapter" class="level1 unnumbered">
+<h1 class="unnumbered">Functions by chapter</h1>
+<section id="useful-information" class="level2">
+<h2 class="anchored" data-anchor-id="useful-information">Useful information</h2>
+<section id="operators" class="level3">
+<h3 class="anchored" data-anchor-id="operators">Operators</h3>
+<p>There are several operators you can use to help build expressions as shown in Table <span class="math inline">\(\ref{tab:operators}\)</span>.</p>
+</section>
+<section id="functions" class="level3">
+<h3 class="anchored" data-anchor-id="functions">Functions</h3>
+<p>Some example functions covered so far are presented in Table <span class="math inline">\(\ref{tab:functions}\)</span>.</p>
+<p>Some summary functions are presented in Table <span class="math inline">\(\ref{tab:summaries}\)</span>.</p>
+</section>
+</section>
+</section>
+<section id="base-r-primer" class="level1 unnumbered">
+<h1 class="unnumbered">Base R primer</h1>
+<p>Please note that the following chapter departs from the syntax employed by the <strong><code>tidyverse</code></strong>, as utilised throughout this workshop, in favour of the base R syntax. This may be changed in the future, but has been left for now in order to better highlight the fundamental machinations of the R language, upon which the <strong><code>tidyverse</code></strong> is based.</p>
+<section id="dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="dataframes">Dataframes</h2>
+<p>The ‘workhorse’ data-containing structures you will use extensively in R are called <em>dataframes</em>. In fact, almost all of the work you do in R will be done directly with dataframes or will involve converting data into a dataframe. A dataframe is used for storing data as tables, with a table defined by a collection of vectors of similar or dissimilar data types but all of the same length. Don’t worry if any of those terms are unknown or daunting. We will cover them in detail just now. But first we need to see what a dataframe looks like in order to provide context for all of the parts they consist of. After we have covered all of the terms used for data in R we will learn some methods of creating our own dataframes.</p>
+<p>To load a dataframe into R is quite simple when the data are already in the ‘.Rdata’ format. Let’s load a small dataframe that was prepared for this class and see. The file extension ‘.Rdata’ does not mean necessarily that the data are in a dataframe (table) format. This file extensions is actually a form of data compression unique to R and could hold anything from a single letter to the results of a complex species distribution model. For the following line of code to work we must make sure we are in the ‘Intro_R_Workshop’ project.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/intro_data.Rdata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Upon loading the data frame we see in the <strong>Environment</strong> tab that there is a little blue circle next to our object. If we click on that we see a summary of each column. First it says what the data type for that column is and then shows the first several values therein.</p>
+<p>If you click on the ‘intro_data’ word in your <strong>Environment</strong> tab it will open it in your <strong>Source Editor</strong> and allow you to click on the columns to organise them by ascending or descending order. Note that this does not change the dataframe, it is only a visual aid.</p>
+</section>
+<section id="basic-data-types" class="level2">
+<h2 class="anchored" data-anchor-id="basic-data-types">Basic data types</h2>
+<p>There are several basic R data types that you frequently encounter in daily work. These include but are not limited to <em>numeric</em>, <em>integer</em>, <em>logical</em>, <em>character</em>, <em>factor</em> and <em>date</em> classes. All of these data types are present in our ‘intro_data’ dataframe for us to see practical examples. We will create our own examples as we go along.</p>
+<section id="numeric" class="level3">
+<h3 class="anchored" data-anchor-id="numeric">Numeric</h3>
+<p>Numeric data with decimal values are called <em>numeric</em> in R. It is the default computational data type. If we look at our data frame we see that the following columns are numeric: lon, lat, NA.perc, mean, min and max. What sort of data are these?</p>
+<p>Let’s create our own numeric object by assigning a decimal value to a variable <code>x</code> as follows, <code>x</code> will be of numeric type:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fl">1.2</span> <span class="co"># assign 1.2 to x</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="co"># print the value of x</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x) <span class="co"># what is the class of x?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Furthermore, even if we assign a number to a variable <code>k</code> that doesn’t have a decimal place, it is still being saved as a numeric value:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>k</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(k)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we want to really be certain that <code>k</code> is or is not an integer we use <code>is.integer()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(k) <span class="co"># is k an integer?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="integer" class="level3">
+<h3 class="anchored" data-anchor-id="integer">Integer</h3>
+<p>An <em>integer</em> in R is a numeric value that does not have a decimal place. It may only be a round whole number. Integers are often used for count data and when converting qualitative data to numbers for data analysis. In our dataframe we may see that we have two integer columns: depth and length. Why are these integers?</p>
+<p>In order to create your own integer variable(s) in R, we use the <code>as.integer()</code>. We can be assured that <code>y</code> is indeed an integer by checking with <code>is.integer()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="dv">13</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(y)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(y) <span class="co"># is it an integer?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we really have to, we can coerce a numeric value into an integer with the same <code>as.integer()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(pi)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>z</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(z)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(z) <span class="co"># is it an integer?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="logical" class="level3">
+<h3 class="anchored" data-anchor-id="logical">Logical</h3>
+<p>There are several <em>logic</em> values in R. We are mostly going to be concerned with the two main values we will be encountering: TRUE and FALSE. Note that all letters must be upper case. In our dataframe we see that only the ‘thermo’ column is logical. This column tells us whether or not the data were collected with a thermometer or not.</p>
+<p>Logical values (<code>TRUE</code> or <code>FALSE</code>) are often created via comparison between variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span>; y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># sample values</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> x <span class="sc">&gt;</span> y</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>z</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In order to perform logical operations we mostly use <code>&amp;</code> (and), <code>|</code> (or), and <code>!</code> (negation):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="cn">TRUE</span>; v <span class="ot">&lt;-</span> <span class="cn">FALSE</span>; w <span class="ot">&lt;-</span> <span class="cn">TRUE</span>; x <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>u <span class="sc">&amp;</span> v</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>u <span class="sc">&amp;</span> w</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>v <span class="sc">&amp;</span> x</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>u <span class="sc">|</span> v</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>u</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Although these logical operators can be immensely useful in more advanced R programming, we will not go into too much detail in this introductory course. For more information on the logical operators, see the R help material:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="st">"&amp;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>One final thing to note about logic in R is that it can be useful to perform arithmetic on logical values. <code>TRUE</code> has the value 1, while <code>FALSE</code> has value 0:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>(<span class="cn">TRUE</span>) <span class="co"># the numeric value of TRUE</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>(<span class="cn">FALSE</span>) <span class="co"># the numeric value of FALSE</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">as.integer</span>(intro_data<span class="sc">$</span>thermo))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What is this telling us?</p>
+</section>
+<section id="character" class="level3">
+<h3 class="anchored" data-anchor-id="character">Character</h3>
+<p>In our dataframe we see that only the ‘src’ column has the <em>character</em> values. This column is showing us which government body etc. collected the data in that row. At the use of a very familiar word, character, one may think this data type must be the most straightforward. This is not necessarily so as character values are used to represent <em>string</em> values in R. Because computers do not understand text the same way we do, they tend to handle this information differently. This allows us to do some pretty wild stuff with character values, but we won’t be getting into that in this course as it quickly becomes very technical and generally speaking isn’t very useful in a daily application.</p>
+<p>If however we wanted to convert an object to a character value we would do so with <code>as.character()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">as.character</span>(pi)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This can be useful if you have data that you want to be characters, but for one reason or another R has decided to make it a different data type.</p>
+<p>If you want to join two character objects they can be concatenated with the <code>paste()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">"fluffy"</span>; b <span class="ot">&lt;-</span> <span class="st">"bunny"</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(a, b)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(a, b, <span class="at">sep =</span> <span class="st">"-"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>More functions for string manipulation can be found in the R documentation — type <code>help("sub")</code> at the command prompt. You may also wish to install Hadley Wickham’s nifty <strong><code>stringr</code></strong> package for more cool ways to work with character strings.</p>
+</section>
+<section id="factor" class="level3">
+<h3 class="anchored" data-anchor-id="factor">Factor</h3>
+<p><em>Factor</em> values are somewhat difficult to explain and often even more difficult to understand. Factor values appear the same as character values when we look at them in a spreadsheet. But they are not the same. This will lead to much wailing and gnashing of teeth. So why then do factors exist and why would we use them? Factors allow us to numerically order names non-alphabetically, for example. This then allows one to order a list of research sites in geographical order.</p>
+<p>We will see many examples of factors during this course but for now look at the ‘site’ column in our dataframe. If we click on this column a couple of times we see that it reorders all the data based on ascending or descending order of the sites. But that order is not alphabetical, it is based on the <em>levels</em> within the factor column. Each factor value in a column is assigned a level integer value (e.g.&nbsp;1, 2, 3, 4, etc.). If multiple values in a factor column are the same, they receive the same level value as well.</p>
+<p>If we want to see what the levels within a factor column are we use <code>levels()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(intro_data<span class="sc">$</span>site)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will discuss in the next session what that <code>$</code> means. But for now, are you able to see what the pattern is in the levels of the site listing?</p>
+<p>If we want to create our own factors we will use <code>as.factor()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And if we want to change the order of our factor levels we use <code>factor()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">factor</span>(f, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"b"</span>, <span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"e"</span>, <span class="st">"d"</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Another reason for using factors to re-order our data, as we shall see tomorrow, is that this allows us to control the order in which values are plotted.</p>
+</section>
+<section id="dates" class="level3">
+<h3 class="anchored" data-anchor-id="dates">Dates</h3>
+<div class="cell">
+
+</div>
+</section>
+</section>
+<section id="vectors" class="level2">
+<h2 class="anchored" data-anchor-id="vectors">Vectors</h2>
+<p>A vector, by definition, is a one-dimensional sequence of data elements of the same basic type (class). Members in a vector are officially called components. Basically, a vector is a column. Indeed, a dataframe is nothing more than a collection of vectors stuck together. If we wanted to create a vector from our dataframe we would do this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lonely_vector <span class="ot">&lt;-</span> intro_data<span class="sc">$</span>NA.perc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice that we may not click on the object <code>lonely_vector</code> in our <strong>Environment</strong> tab. This is because it is no longer two-dimensional. If we want to visualise the data we need to enter it into the console or run it from our script:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lonely_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s create some vectors of our own:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>primes1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>primes1</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(primes1)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> pi</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>primes2 <span class="ot">&lt;-</span> <span class="fu">c</span>(p1, p2, p3)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>primes2</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(primes2)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(primes2)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(primes2) <span class="co"># integers coerced into floating point numbers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also have vectors of logical values or character strings, and we can use the function <code>length()</code> to see how many components each has:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tf <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>tf</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(tf)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>cs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Mary"</span>, <span class="st">"has"</span>, <span class="st">"a"</span>, <span class="st">"silly"</span>, <span class="st">"lamb"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>cs</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(cs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Of course one would seldom enter data into R using the <code>c()</code> (combine) function, but it is useful for short calculations. More often than not one would import data from Excel (urgh!) or something more reputable. The kinds of data one can read into R are remarkable. We will get to that later on.</p>
+<p>We can also combine vectors in many ways, and the simplest way is the append one after the other:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>primes12 <span class="ot">&lt;-</span> <span class="fu">c</span>(primes1, primes2)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>primes12</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>nonSense <span class="ot">&lt;-</span> <span class="fu">c</span>(primes12, cs)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>nonSense</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(nonSense)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the code fragment above, notice how the numeric values are being coerced into character strings when the two vectors of dissimilar class are combined. This is necessary so as to maintain the same primitive data type for members in the same vector.</p>
+</section>
+<section id="vector-indices" class="level2">
+<h2 class="anchored" data-anchor-id="vector-indices">Vector indices</h2>
+<p>What if we want to extract one or a few components from the vector? Easy… We retrieve values in a vector by declaring an index inside a single square bracket <code>[]</code> operator. For example, the following shows how to retrieve a vector component. Since the vector index is 1-based (<em>i.e.</em> the first component in a vector is numbered <code>1</code>), we use the index position <code>7</code> for retrieving the seventh member:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>nonSense[<span class="dv">7</span>] <span class="co"># find the seventh component in the vector</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or combine them in interesting ways...</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(nonSense[<span class="dv">7</span>], nonSense[<span class="dv">8</span>], nonSense[<span class="dv">4</span>], nonSense[<span class="dv">10</span>], <span class="st">"bunnies"</span>, <span class="at">sep =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If the index given is negative, it will remove the value whose position has the same absolute value as the negative index. For example, the following creates a vector slice with the third member removed. However, if an index is out-of-range, a missing value will be reported via the symbol <code>NA</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">13</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>a[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="vector-creation" class="level2">
+<h2 class="anchored" data-anchor-id="vector-creation">Vector creation</h2>
+<p>R has many funky ways of creating vectors. This process is important to understand because we will need to build on it to create our own dataframes. Here are some examples of vector creation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># assign them to a variable if you want to...</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">len =</span> <span class="dv">10</span>) <span class="co"># one may omit from and to</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">9</span>, <span class="at">by =</span> pi)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">13</span>, <span class="at">times =</span> <span class="dv">13</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">times =</span> <span class="dv">6</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">13</span>, <span class="at">sd =</span> <span class="fl">0.13</span>) <span class="co"># random numbers with known mean and sd</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(a, <span class="dv">5</span>) <span class="co"># one may omit the times argument</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="dv">3</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">each =</span> <span class="dv">3</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"01-31-1960"</span>, <span class="st">"02-13-1960"</span>, <span class="st">"06-23-1977"</span>, <span class="st">"01-01-2013"</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(x, <span class="st">"%m-%d-%Y"</span>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(z) <span class="co"># introducing the date class</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2013-12-30"</span>), <span class="fu">as.Date</span>(<span class="st">"2014-01-04"</span>), <span class="at">by =</span> <span class="st">"days"</span>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2013-12-01"</span>), <span class="fu">as.Date</span>(<span class="st">"2016-01-31"</span>), <span class="at">by =</span> <span class="st">"months"</span>)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2000/1/1"</span>), <span class="at">by =</span> <span class="st">"month"</span>, <span class="at">length.out =</span> <span class="dv">12</span>)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co"># and many more...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="vector-arithmetic" class="level2">
+<h2 class="anchored" data-anchor-id="vector-arithmetic">Vector arithmetic</h2>
+<p>Arithmetic operations of vectors are performed component-by-component, <em>i.e.</em>, componentwise. For example, suppose we have vectors <code>a</code> and <code>b</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we multiply <code>a</code> by <code>5</code>…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">*</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>… and see that each component of <code>a</code> is multiplied by <code>5</code>. In other words, the shorter vector (here <code>5</code>) is recycled. Now multiply <code>a</code> with <code>b</code>…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">*</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>…and we see that the components in one vector matches those in the other one-for-one. Similarly for subtraction, addition and division, we get new vectors via componentwise operations. Try this here now a few times with your own vectors.</p>
+<p>But what if one vector is somewhat shorter than the other? The <em>recycling rule</em> comes into play. If two vectors are of unequal length, the shorter one will be recycled in order to match the longer vector. For example, the following vectors <code>u</code> and <code>v</code> have different lengths, and their sum is computed by recycling values of the shorter vector <code>u</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">2</span>, <span class="at">len =</span> <span class="dv">13</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">20</span>), <span class="at">len =</span> <span class="dv">5</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>v <span class="sc">+</span> u</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dataframe-creation" class="level2">
+<h2 class="anchored" data-anchor-id="dataframe-creation">Dataframe creation</h2>
+<p>The most rudimentary way to create a dataframe is to create several vectors and then assemble them into a dataframe using <code>cbind()</code> — this is a function that combines by <em>c</em>olumn. For instance:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create three vectors of different types</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>vec1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">each =</span> <span class="dv">5</span>) <span class="co"># a character vector (a facctor)</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>vec2 <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"1981-01-01"</span>), <span class="at">by =</span> <span class="st">"day"</span>, </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">length.out =</span> <span class="fu">length</span>(vec1)) <span class="co"># date vector</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>vec3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fu">length</span>(vec1), <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fl">0.35</span>) <span class="co"># numeric vector</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># now assemble dataframe</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(vec1, vec2, vec3)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Another way to achieve the same thing is to use the <code>data.frame()</code> function that will allow you to achieve all of the above steps at once. Here is the example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">vec1 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">each =</span> <span class="dv">5</span>),</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vec2 =</span> <span class="fu">seq.Date</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"1981-01-01"</span>), <span class="at">by =</span> <span class="st">"day"</span>, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">length.out =</span> <span class="fu">length</span>(vec1)),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vec3 =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fu">length</span>(vec1), <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="fl">0.75</span>))</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df2, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What about the names of the dataframe that you just created? Are you happy that they are descriptive enough? If you aren’t, don’t fear. There are several different ways in which we can change it. We can assign the existing separate vectors <code>vec1</code>, <code>vec2</code> and <code>vec3</code> to more user-friendly names using the <code>data.frame()</code> function, like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">level =</span> vec1,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sample.date =</span> vec2,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">measurement =</span> vec3)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df1, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Another way is to change the name after you have created the dataframe using the <code>colnames()</code> assignment function, as in:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"level"</span>, <span class="st">"sample.date"</span>, <span class="st">"measurement"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df2, <span class="dv">2</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dataframes are very versatile and we can do many operations on them. A common requirement is to add a column to a dataframe that contains the outcome of some calculation. We could create a new column in the dataframe ‘on the fly’, as in:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df2<span class="fl">.1</span> <span class="ot">&lt;-</span> df1 <span class="co"># copy the dataframe</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df2<span class="fl">.1</span><span class="sc">$</span>meas.anom <span class="ot">&lt;-</span> df1<span class="sc">$</span>measurement <span class="sc">-</span> <span class="fu">mean</span>(df1<span class="sc">$</span>measurement)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>df2<span class="fl">.1</span><span class="sc">$</span>meas.diff <span class="ot">&lt;-</span> df2<span class="fl">.1</span><span class="sc">$</span>measurement <span class="sc">-</span> df2<span class="fl">.1</span><span class="sc">$</span>meas.anom</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df2<span class="fl">.1</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also combine dataframes in different ways. Perhaps you have two (or more) dataframe that conform to the same layout, <em>i.e.</em> they have the same number of columns (although the length of the dataframes may differ), they have the same data type in those columns and the names of those columns are the same. Also, the order of the columns must be identical in all the dataframes. Two separate dataframe with the same structure may, for example, result from two identical experiments that were repeated at different times. We can then stack one on top (<em>e.g.</em> combine our experiments) of the other using the <em>r</em>ow bind function <code>rbind()</code>, as in:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df1) <span class="co"># check the number of rows first</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df2)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df1, df2)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df3) <span class="co"># number of rows in the combined dataframe</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df3, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>But now how do we know how the portions of the stacked dataframe relate to the experiments that resulted in the data in the first place? There is no label to distinguish one experiment from the other. We can fix this by adding a new column to the stacked dataframe that contains the coding for the two experiments. We can achieve it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df3<span class="sc">$</span>exp.no <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"exp1"</span>, <span class="st">"exp2"</span>), <span class="at">each =</span> <span class="fu">nrow</span>(df1))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df3, <span class="dv">2</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(df3, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can combine dataframes in another way — that is, bind columns side-by-side using the function <code>cbind()</code>. We used it before to place vectors of the same length next to each other to create a dataframe. This function is similar to <code>rbind()</code>, but where <code>rbind()</code> fusses over the names of the columns, <code>cbind()</code> does not. What does concern <code>cbind()</code>, however, is that the number of rows in the two (or more) dataframes that will be ‘glued’ side-by-side is the same. Try it yourself with your own dataframes.</p>
+</section>
+<section id="dataframe-indices" class="level2">
+<h2 class="anchored" data-anchor-id="dataframe-indices">Dataframe indices</h2>
+<p>Remember that weird <code>$</code> symbol we saw a little while ago? That symbol tells R that you want to see a column (vector) within a dataframe. For example, if we wanted to perform an operation on only one column in <code>intro_data</code> in order to ascertain the mean depth (m) of sampling:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(intro_data<span class="sc">$</span>depth),<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we want to subset only specific values in a dataframe, as we have seen how to do with vectors, we need to consider that we are now working with two dimensions and not one. We still use <code>[]</code> but now we must do a little extra. If we want to see how long the time series for Sodwana is we could do this in several ways, here are the three most common in an improving order:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset a dataframe using [,]</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>intro_data[<span class="dv">12</span>,<span class="dv">9</span>]</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset only one column using []</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>intro_data<span class="sc">$</span>length[<span class="dv">12</span>]</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset from one column using logic for another column</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>intro_data<span class="sc">$</span>length[intro_data<span class="sc">$</span>site <span class="sc">==</span> <span class="st">"Sodwana"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The important thing to remember here is that when one needs to use a comma when subsetting, the row number is always on the left, and the column number is always on the right. Rows then columns! Tattoo that onto your brain. Or fore-arm if you are the adventurous type. We will go into the subsetting and analysis of dataframes in much more detail in the following session.</p>
+<p>One must keep in mind that data in R can become substantially more complex than what we have covered, and the software also distinguishes several other kinds of data ‘containers’: in addition to vectors and dataframes, we also have <em>lists</em>, <em>matrices</em>, <em>time series</em> and <em>arrays</em>. The more complex ones, such as arrays, may have more dimensions than the two (rows along dimension 1, columns along dimension 2) that most people are familiar with. We will not delve into these here as they are bit more advanced than the goals of this course.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./workflow.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Workflows in R</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./brief.html" class="pagination-link">
+        <span class="nav-page-text">Policy Brief</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
