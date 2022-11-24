@@ -6,6 +6,7 @@ format:
     self-contained: true
     transition: slide
 editor: source
+scrollable: true
 ---
 
 # Wrangling data {background-color="#008980" style="text-align: center"}
@@ -23,13 +24,13 @@ knitr::opts_chunk$set(
 ## Problem
 
 -   What actually are **tidy data**?
--   How does one tidy data?
+-   How does one tidy their data?
 -   Is there a basic approach to doing this?
 
 ## Solution
 
 -   We cover the definition for **tidy data** here
--   We are introduced to the main functions we'll need for tidying
+-   We are introduced to the main functions we'll need for tidying data
 -   We go over some tidy workflows to clarify
 
 ## Setup
@@ -80,8 +81,11 @@ This is a centrally important part of reproducible research.
 -   Each object contains similar data in different states of disrepair
 -   Some are easier to tidy than others
 
-```{r tidy-data-load}
+```{r, echo=FALSE}
 load("../data/OISST_mangled.RData")
+```
+```{r, eval=FALSE}
+load("course_material/data/OISST_mangled.RData")
 ```
 
 ```{r tidy-data-peek, eval=FALSE}
@@ -94,7 +98,7 @@ SACTN4a
 SACTN4b
 ```
 
-## `OISST1` {auto-animate=true}
+## `OISST1`
 
 -   These are how tidy data should look
 -   If this looks familiar, it is because they are the same data from the first exercise
@@ -103,7 +107,9 @@ SACTN4b
 head(OISST1)
 ```
 
-## `OISST1` {auto-animate=true}
+## `OISST1`
+
+-   Simple line plot of the **tidy** `OISST1` dataset
 
 ```{r tidy-1}
 ggplot(data = OISST1, aes(x = t, y = temp)) +

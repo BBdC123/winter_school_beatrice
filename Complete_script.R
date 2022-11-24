@@ -288,7 +288,6 @@ library(maps)
 
 # Basic mapping -----------------------------------------------------------
 
-
 ## Default map -------------------------------------------------------------
 
 earth_1 <- ggplot() +
@@ -345,7 +344,7 @@ green_2 <- ggplot(data = map_data_green, aes(x = long, y = lat)) +
 green_2
 
 # when using polygons we need to tell R what the group is
-# map data is desgined to work with ggplot: column name is group
+# map data is designed to work with ggplot: column name is group
 # group is a column inside the extracted data 
 # group defines the different landmasses (i.e. islands, mainland)
 
@@ -407,7 +406,7 @@ green_5
 # y scale: go from 60 to 80 in steps of 10
 green_final <- green_5 +
   scale_x_continuous(breaks = seq(-60, -20, 20),
-                     labels = c("60°W", "40°W", "20°w"),
+                     labels = c("60°W", "40°W", "20°W"),
                      position = "bottom") +
   scale_y_continuous(breaks = seq(60, 80, 10),
                      labels = c("60°N", "70°N", "80°N"),
@@ -716,3 +715,346 @@ basemap(limits = c(100, 160, -20, 30), bathymetry = TRUE)
 citation("tidyverse")
 
 citation("base")
+
+
+# DAY 5 - TIDY DATA ---------------------------------------------------------
+
+library(tidyverse)
+
+load("course_material/data/OISST_mangled.RData")
+
+
+## Long and Wide format ----------------------------------------------------
+
+# OISST1
+head(OISST1)
+
+# Simple line plot of the **tidy** `OISST1` dataset
+
+ggplot(data = OISST1, aes(x = t, y = temp)) +
+  geom_line(aes(colour = site)) +
+  labs(x = NULL, y = "Temperature (°C)", colour = "Site") +
+  theme_bw()
+
+
+#OISST 2
+head(OISST2)
+
+# pivot_longer to convert from wide to long
+OISST2_tidy <- OISST2 %>%
+  pivot_longer(cols = c(Med, NW_Atl, WA), 
+               names_to = "site", values_to = "temp")
+head(OISST2_tidy)
+
+
+#OISST3
+head(OISST3)
+
+#pivot_wider to convert from long to wide
+OISST3_tidy <- OISST3 %>% 
+  pivot_wider(id_cols = c(idx,temp), names_from = type, values_from = name)
+head(OISST3_tidy)
+
+
+## Separating and Uniting --------------------------------------------------
+
+#sites a
+
+head(OISST4b)
+
+# Unite year, month, and datnd dates in same column, not useful
+head(OISST4a)
+
+#col= which column we want to separate
+#into= new columns we want to create
+#sep =separating by whatever vaues are separated in data
+OISST4a_tidy <- OISST4a %>% 
+  separate(col = index, into = c("site", "t"), sep = " ")
+head(OISST4a_tidy)
+e
+OISST4b_tidy <- OISST4b %>% 
+  unite(year, month, day, col = "t", sep = "-")
+head(OISST4b_tidy)
+
+
+# Joining
+head(OISST4a_tidy)
+head(OISST4b_tidy)
+
+#4a no index data
+#4b no temperature data
+#left_join will joins left 4a to the left with 4b
+OISST4_tidy <- left_join(OISST4a_tidy, OISST4b_tidy)
+head(OISST4_tidy)
+
+
+# Taming data ------------------------------------------------------------------
+
+library(tidyverse)
+library(lubridate) # For working with dates
+
+load("course_material/data/OISST_mangled.RData")
+
+# Tidy transformations:
+# Arrange observations (rows) with `arrange()
+# Select variables (columns) with`select()
+# Filter observations (rows) with `filter()  
+# Create new variables (columns) with `mutate()  
+# Summarise data (rows+columns) with `summarise()
+
+
+## Arrange -----------------------------------------------------------------
+
+# arrange by site and temperature
+OISST1 %>% 
+  arrange(site, temp) %>% 
+  head()
+
+
+## Select ------------------------------------------------------------------
+
+# Select columns individually by name
+OISST1 %>% 
+  select(site, t, temp)
+
+# Select all columns between site and temp like a sequence
+OISST1 %>% 
+  select(site:temp)
+
+# Select all columns except those stated individually
+OISST1 %>% 
+  select(-t, -temp)
+
+# Select all columns except those within a given sequence
+# Note that the '-' goes outside of a new set of brackets
+# that are wrapped around the sequence of columns to remove
+OISST1 %>% 
+  select(-(site:temp))
+
+# Change up order by specifying individual columns
+OISST1 %>% 
+  select(temp, t, site)
+
+# Use the everything function to grab all columns 
+# not already specified
+OISST1 %>% 
+  select(t, everything())
+
+# Or go bananas and use all of the rules at once
+# Remember, when dealing with tidy data,
+# everything may be interchanged
+OISST1 %>% 
+  select(temp:t, everything(), -site)
+
+
+## Filter ------------------------------------------------------------------
+# filter automatically removes rows with NA
+
+# filter site Med and values of December OR January
+OISST1_sub <- OISST1 %>% 
+  filter(site == "Med", month(t) == 12 | month(t) == 1)
+
+
+OISST1 %>% 
+  filter(site == "Med", 
+         year(t) == 2008) %>% 
+  head()
+
+
+# %in% operator to include multiple statements
+# we take sites that are in Med and WA for year 2009
+OISST1 %>% 
+  filter(site %in% c("Med", "WA"), 
+         year(t) == 2009) %>% 
+  tail()
+
+
+## Mutate ------------------------------------------------------------------
+
+# creating new variable (Kelvin)
+OISST1 %>% mutate(kelvin = temp + 273.15) %>% head()
+
+OISST1 %>% 
+  mutate(mean_temp = mean(temp, na.rm = TRUE)) %>% 
+  head()
+# not very useful, better to use summarize
+
+
+## Summarize ---------------------------------------------------------------
+
+OISST1 %>% summarise(mean_temp = mean(temp, na.rm = TRUE)) %>%
+  head()
+
+OISST1 %>% summarise(mean_temp = mean(temp, na.rm = TRUE),
+            sd_temp = sd(temp, na.rm = TRUE),
+            min_temp = min(temp, na.rm = TRUE),
+            max_temp = max(temp, na.rm = TRUE))
+
+# still not very useful because we want to have the mean temp for sites
+
+# group by sites beforehand
+OISST1 %>% group_by(site) %>%
+  summarise(mean_temp = mean(temp, na.rm = TRUE)) %>%
+  head()
+
+OISST1 %>% group_by(site) %>%
+  summarise(mean_temp = mean(temp, na.rm = TRUE),
+            sd_temp = sd(temp, na.rm = TRUE),
+            min_temp = min(temp, na.rm = TRUE),
+            max_temp = max(temp, na.rm = TRUE))
+
+
+## Grouping ----------------------------------------------------------------
+
+library(tidyverse)
+library(lubridate)
+
+sst_NOAA <- read_csv("course_material/data/sst_NOAA.csv")
+
+
+sst_NOAA_site <- sst_NOAA %>% group_by(site)
+sst_NOAA %>% head()
+sst_NOAA_site %>% head()
+# looks the same but is not
+
+sst_NOAA %>% 
+  summarise(mean_temp = mean(temp, na.rm = TRUE)) %>% 
+  head()
+# one overall mean, does not make sense
+
+sst_NOAA_site %>% 
+  summarise(mean_temp = mean(temp, na.rm = TRUE)) %>% 
+  head()
+# now we get the means for all the groups
+
+# ungrouping
+sst_NOAA_ungroup <- sst_NOAA_site %>% ungroup()
+
+sst_NOAA_site %>% 
+  summarise(mean_temp = mean(temp, na.rm = TRUE)) %>% 
+  head()
+
+sst_NOAA_ungroup %>% 
+  summarise(mean_temp = mean(temp, na.rm = TRUE)) %>% 
+  head()
+
+# Multiple groups
+
+# Create groupings based on temperatures, takes temperatures that round to one digit
+sst_NOAA_temp_group <- sst_NOAA %>% 
+  group_by(round(temp))
+
+# Create groupings based on site and month
+sst_NOAA_temp_month_group <- sst_NOAA %>% 
+  mutate(month = month(t)) %>% 
+  group_by(site, month)
+
+
+# Generally one does not group objects separately
+# grouping is performed in chunks
+
+sst_NOAA_site_mean <- sst_NOAA %>% 
+  # Group by the site column
+  group_by(site) %>% 
+  # Calculate means
+  summarise(mean_temp = mean(temp, na.rm = TRUE), 
+            # Count observations 
+            count = n(),
+            # Ungroup results
+            .groups = "drop") 
+sst_NOAA_site_mean
+
+
+# Examples ----------------------------------------------------------------
+
+# Filter sites that don't have a max temperature above 20°C
+sst_NOAA_20 <- sst_NOAA %>%
+  group_by(site) %>%
+  filter(temp > 20) %>% 
+  ungroup()
+unique(sst_NOAA_20$site)
+head(sst_NOAA_20)
+
+# Calculate anomalies for each site 
+sst_NOAA_anom <- sst_NOAA %>%
+  group_by(site) %>% 
+  mutate(anom = temp - mean(temp, na.rm = T)) %>%
+  ungroup()
+head(sst_NOAA_anom)
+
+# Calculate mean and standard deviations for two sites
+sst_NOAA %>% 
+  filter(site == "Med" | site == "WA") %>%
+  group_by(site) %>% 
+  summarise(mean_temp = mean(temp, na.rm = TRUE), 
+            sd_temp = sd(temp, na.rm = TRUE)) %>%
+  ungroup
+
+
+# Calculate mean and standard deviations for two sites
+# First create a character vector containing the desired sites
+selected_sites <- c("Med", "WA")
+
+# Then calculate the statistics
+sst_NOAA %>% 
+  filter(site %in% selected_sites) %>%
+  group_by(site) %>% 
+  summarise(mean_temp = mean(temp, na.rm = TRUE), 
+            sd_temp = sd(temp, na.rm = TRUE))
+
+# Only days with temperatures above 10°C and below 15°C
+sst_NOAA %>% 
+  filter(site == "Med", 
+         temp > 10, temp < 15) %>% 
+  nrow()
+
+# Only days with temperatures not below 10 and not higher than 15°C
+sst_NOAA %>% 
+  filter(site == "Med", 
+         !(temp <= 10 | temp  >= 15)) %>% 
+  nrow()
+
+# Change system language to english -> month in plot will be displayed in en
+Sys.setlocale(category="LC_TIME", locale="en")
+Sys.setlocale(category="LC_TIME", locale="german")
+
+# The new age redux 
+# Load the SACTN Day 1 data
+read_csv("course_material/data/sst_NOAA.csv") %>%
+  # Then create a month abbreviation column
+  mutate(month = month(t, label = TRUE)) %>% 
+  # Then group by sites and months
+  group_by(site, month) %>% 
+  # Lastly calculate the mean
+  summarise(mean_temp = mean(temp, na.rm = TRUE), 
+            # and the SD
+            sd_temp = sd(temp, na.rm = TRUE)) %>% 
+  # Begin ggplot
+  ggplot(aes(x = month, y = mean_temp, group = site)) + 
+  # Create a ribbon
+  geom_ribbon(aes(ymin = mean_temp - sd_temp, ymax = mean_temp + sd_temp), 
+              fill = "black", alpha = 0.4) + 
+  # Create dots
+  geom_point(aes(colour = site)) + 
+  # Create lines
+  geom_line(aes(colour = site, group = site)) + 
+  # Change labels
+  labs(x = "Month", y = "Temperature (°C)", colour = "Site") 
+
+
+# Summary functions
+# The proportion of recordings above 20°C per site
+
+sst_NOAA %>%  
+  group_by(site) %>%
+  summarise(count = n(), 
+            count_20 = sum(temp > 20)) %>% 
+  mutate(prop_20 = count_20/count) %>% 
+  arrange(prop_20) %>% ungroup()
+
+# Look at all the datasets in R
+data(package = .packages(all.available =TRUE))
+
+MASS:crabs
+
+crabs <- MASS::crabs

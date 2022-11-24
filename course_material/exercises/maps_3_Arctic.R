@@ -129,7 +129,7 @@ grid_vn <- ggarrange(vietnam, plot_nha_trang,
 grid_vn
 
 
-ggsave(plot = grid_maps, filename = "figures/exercise_maps.pdf", 
+ggsave(plot = grid_vn, filename = "figures/grid_vn.pdf", 
        height = 6, width = 8)
 
 

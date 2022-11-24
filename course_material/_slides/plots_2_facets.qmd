@@ -6,6 +6,7 @@ format:
     self-contained: true
     transition: slide
 editor: source
+scrollable: true
 ---
 
 # Faceting in **`ggplot2`** {background-color="#008980" style="text-align: center"}
@@ -60,7 +61,8 @@ ggplot(data = penguins,
        aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  facet_wrap(~species) # Can take one or two column names
+  # Can take one or two column names (e.g. island~species)
+  facet_wrap(~species)
 ```
 
 ## Facet grid {auto-animate=true}
@@ -70,19 +72,23 @@ ggplot(data = penguins,
        aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  facet_grid(island~species) # Takes two or more column names
+   # Takes two or more column names (e.g. species+sex~island)
+  facet_grid(species~island)
 ```
 
 ## Create plot object {auto-animate=true}
 
 ```{r}
+#| output-location: fragment
 # Assign the ggplot2 code to an object name
 lm_1 <- ggplot(data = penguins,
        aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point() +
   geom_smooth(method = "lm") +
   labs(x = "Body mass (g)", y = "Bill length (mm)", colour = "Species")
-lm_1 # Visualise the plot by calling the object
+
+# Visualise the plot by calling the object
+lm_1
 ```
 
 ## Non-linear model
@@ -100,9 +106,11 @@ nlm_1
 
 ```{r}
 histogram_1 <- ggplot(data = penguins, 
-                      aes(x = body_mass_g)) + #NB: There is no y-axis value
+                      # NB: There is no y-axis value for histograms
+                      aes(x = body_mass_g)) + 
   geom_histogram(aes(fill = species), position = "stack", binwidth = 250) +
-  labs(x = "Body mass (g)", fill = "Species") # NB: We use 'fill' here rather than 'colour'
+  # NB: We use 'fill' here rather than 'colour'
+  labs(x = "Body mass (g)", fill = "Species")
 histogram_1
 ```
 
@@ -110,7 +118,8 @@ histogram_1
 
 ```{r}
 box_1 <- ggplot(data = penguins, 
-                aes(x = as.factor(year), # Why 'as.factor()'?
+                # Why 'as.factor()'?
+                aes(x = as.factor(year),
                     y = body_mass_g)) + 
   geom_boxplot(aes(fill = species)) +
   labs(x = "Year", y = "Body mass (g)", fill = "Species") 
@@ -120,11 +129,17 @@ box_1
 ## Combine plots
 
 ```{r}
-grid_1 <- ggarrange(lm_1, nlm_1, histogram_1, box_1, # The plots to combine 
-                    ncol = 2, nrow = 2, # Set number of rows and columns
-                    labels = c("a)", "b)", "c)", "d)"), # Label each figure
-                    common.legend = TRUE,  # Create common legend
-                    legend = "bottom") # Set legend position
+#| output-location: fragment
+# List the names of the plot objects to combine 
+grid_1 <- ggarrange(lm_1, nlm_1, histogram_1, box_1,
+                    # Set number of rows and columns
+                    ncol = 2, nrow = 2,
+                    # Label each figure
+                    labels = c("a)", "b)", "c)", "d)"),
+                    # Create common legend
+                    common.legend = TRUE,
+                    # Set legend position
+                    legend = "bottom")
 grid_1
 ```
 
@@ -137,7 +152,8 @@ ggsave(plot = grid_1, filename = "figures/grid_1.png")
 ggsave(plot = grid_1, filename = "figures/grid_1.eps")
 
 # Change dimensions
-ggsave(plot = grid_1, filename = "figures/grid_1.png", width = 10, height = 8)
+ggsave(plot = grid_1, filename = "figures/grid_1.png", 
+       width = 10, height = 8)
 
 # Change DPI
 ggsave(plot = grid_1, filename = "figures/grid_1.png", dpi = 600)

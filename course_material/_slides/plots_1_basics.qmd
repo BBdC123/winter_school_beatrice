@@ -24,15 +24,13 @@ knitr::opts_chunk$set(
 
 * Default R plotting (_Base R_) hasn't advanced much since the 90s
 * Non-intuitive syntax, functions, and arguments
-* Not enough control over final plot
 * Published figures do not look very professional
 
 ## Solution
 
-* The **`ggplot2`** package uses the [grammar of graphics](https://link.springer.com/book/10.1007/0-387-28695-0)
-* Is integrated into the **`tidyverse`**
-* Easier syntax with intuitive functions and arguments
-* Massive range of well developed support and extensions
+* **`ggplot2`** uses the [grammar of graphics](https://link.springer.com/book/10.1007/0-387-28695-0)
+* Integrated into **`tidyverse`** with intuitive functions and arguments
+* Well developed support and extensions for professional figures
 
 ## Setup
 
@@ -76,7 +74,8 @@ ggplot(data = penguins,
 ```{r}
 ggplot(data = penguins,
        aes(x = body_mass_g, y = bill_length_mm)) +
-  geom_point(aes(colour = island)) # 'island' is a column from 'penguins'
+  # 'island' is a column from 'penguins'
+  geom_point(aes(colour = island))
 ```
 
 ## Outside `aes()` {auto-animate=true}
@@ -84,7 +83,8 @@ ggplot(data = penguins,
 ```{r}
 ggplot(data = penguins,
        aes(x = body_mass_g, y = bill_length_mm)) +
-  geom_point(colour = "red") # Make all points red
+  # Make all points red
+  geom_point(colour = "red")
 ```
 
 ## Outside inside? {auto-animate=true}
@@ -92,7 +92,8 @@ ggplot(data = penguins,
 ```{r}
 ggplot(data = penguins,
        aes(x = body_mass_g, y = bill_length_mm)) +
-  geom_point(aes(colour = "red")) # What is happening here
+  # What is happening here?
+  geom_point(aes(colour = "red"))
 ```
 
 ## Inside outside? {auto-animate=true}
@@ -100,7 +101,8 @@ ggplot(data = penguins,
 ```{r, error=TRUE}
 ggplot(data = penguins,
        aes(x = body_mass_g, y = bill_length_mm)) +
-  geom_point(colour = species) # Why does this cause an error?
+  # Why does this cause an error?
+  geom_point(colour = species)
 ```
 
 ## More than just colour {auto-animate=true}
@@ -108,7 +110,8 @@ ggplot(data = penguins,
 ```{r}
 ggplot(data = penguins,
        aes(x = body_mass_g, y = bill_length_mm)) +
-  geom_point(aes(size = flipper_length_mm, shape = island)) # What else can we add?
+  # What else can we add?
+  geom_point(aes(size = flipper_length_mm, shape = island))
 ```
 
 ## Add a geom {auto-animate=true}
@@ -128,7 +131,9 @@ ggplot(data = penguins,
        aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(x = "Body mass (g)", y = "Bill length (mm)", colour = "Species") + # Change labels
-  theme(legend.position = "bottom") # Change legend position
+  # Change label text
+  labs(x = "Body mass (g)", y = "Bill length (mm)", colour = "Species") +
+  # Change legend position
+  theme(legend.position = "bottom")
 ```
 

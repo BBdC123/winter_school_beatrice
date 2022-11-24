@@ -34,12 +34,19 @@ knitr::opts_chunk$set(
 
 ## Setup
 
-```{r}
+We will use two packages and one example dataset for these slides.
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(lubridate)
+load("../data/OISST_mangled.RData")
+```
+```{r, eval=FALSE}
 library(tidyverse) # All-in-one
 
 library(lubridate) # For working with dates
 
-load("../data/OISST_mangled.RData") # For examples
+load("course_material/data/OISST_mangled.RData") # For examples
 ```
 
 ## **tidy workflow**
@@ -55,8 +62,8 @@ knitr::include_graphics("slide_images/data-science-wrangle.png")
 There are five primary data transformation functions that we will focus on here:  
 
 -   Arrange observations (rows) with `arrange()`  
--   Filter observations (rows) with `filter()`  
 -   Select variables (columns) with`select()`  
+-   Filter observations (rows) with `filter()`  
 -   Create new variables (columns) with `mutate()`  
 -   Summarise data (rows+columns) with `summarise()`  
 
@@ -81,7 +88,7 @@ It is important here to note that `==` is for comparisons and `=` is for maths. 
 
 ```{r, error=TRUE}
 OISST1 %>% 
-  filter(site = "Svalbard")
+  filter(site = "Med")
 ```
 
 ## Logical operators
@@ -97,6 +104,7 @@ OISST1 %>%
 -   not: `!`  
   
 ## Logical operators
+-   Note that we need a separate logical argument for each comparison operator
 
 ```{r}
 OISST1_sub <- OISST1 %>% 
@@ -126,6 +134,8 @@ tail(OISST1_sub)
 
 ## `arrange()` observation (row) 
 
+-   The effect of using the `desc()` function
+
 ::: columns
 ::: {.column}
 ```{r}
@@ -144,34 +154,6 @@ OISST1 %>%
 :::
 :::
 
-## `filter()` observation (row)
-
--   `filter()` is generally used the most of all transformations
--   It allows us to dramatically reshape a dataframe
--   Note that this automatically removes rows with `NA`
-
-## `filter()` observation (row)
-
-::: columns
-::: {.column}
-```{r}
-OISST1 %>% 
-  filter(site == "Med", 
-         year(t) == 2008) %>% 
-  head()
-```
-:::
-
-::: {.column}
-```{r}
-OISST1 %>% 
-  filter(site %in% c("Med", "WA"), 
-         year(t) == 2009) %>% 
-  tail()
-```
-:::
-:::
-
 ## `select()` variable (column)
 
 -   If we load data with columns we don't need, we may `select()` those we do
@@ -179,6 +161,8 @@ OISST1 %>%
 -   It is up to the user to find a favourite technique
 
 ## `select()` variable (column)
+
+-   Different ways of using `select()`
 
 ```{r, eval=FALSE}
 # Select columns individually by name
@@ -202,6 +186,8 @@ OISST1 %>%
 
 ## `select()` variable (column)
 
+-   Even more ways of using `select()`
+
 ```{r, eval=FALSE}
 # Change up order by specifying individual columns
 OISST1 %>% 
@@ -218,6 +204,36 @@ OISST1 %>%
 OISST1 %>% 
   select(temp:t, everything(), -site)
 ```
+
+## `filter()` observation (row)
+
+-   `filter()` is generally used the most of all transformations
+-   It allows us to dramatically reshape a dataframe
+-   Note that this automatically removes rows with `NA`
+
+## `filter()` observation (row)
+
+-   Use the `%in%` comparison operator to make multiple logic statements
+
+::: columns
+::: {.column}
+```{r}
+OISST1 %>% 
+  filter(site == "Med", 
+         year(t) == 2008) %>% 
+  head()
+```
+:::
+
+::: {.column}
+```{r}
+OISST1 %>% 
+  filter(site %in% c("Med", "WA"), 
+         year(t) == 2009) %>% 
+  tail()
+```
+:::
+:::
 
 ## `mutate()` new variable (column)
 
